@@ -1,43 +1,89 @@
-.example-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px;
+/* Form container */
+form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.example-full-width {
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 20px;
+/* Grid layout for form fields */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
 }
 
+/* Style form fields */
 mat-form-field {
   width: 100%;
 }
 
+/* Section labels */
 mat-label {
-  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Radio buttons and checkboxes */
+mat-radio-group, .example-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Buttons styling */
+button {
+  margin-right: 10px;
+  padding: 8px 16px;
+}
+
+button[type="submit"] {
+  background-color: #1976d2;
+  color: white;
+}
+
+button[type="button"] {
+  background-color: #388e3c;
+  color: white;
+}
+
+/* Table styling */
+.example-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.example-table th, .example-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.example-table th {
+  background-color: #f2f2f2;
   font-weight: bold;
 }
-
-input[matInput] {
-  font-size: 14px;
-  padding: 10px;
+.gender-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 10px;
 }
 
-.example-section {
-  margin: 12px 0;
+/* Form Group Styling */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
 }
 
-.example-margin {
-  margin: 0 12px;
-}
-
-ul {
-  list-style-type: none;
+/* Error message styling */
+mat-error {
+  color: #d32f2f;
+  font-size: 12px;
   margin-top: 4px;
 }
-.mat-mdc-radio-button ~ .mat-mdc-radio-button {
-  margin-left: 16px;
-}
-

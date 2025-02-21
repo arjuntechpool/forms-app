@@ -15,47 +15,56 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CommonModule } from '@angular/common';
 import { MatRadioModule } from '@angular/material/radio';
 
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
-  ): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(
-      control &&
-      control.invalid &&
-      (control.dirty || control.touched || isSubmitted)
-    );
-  }
-}
+// /** Error when invalid control is dirty, touched, or submitted. */
+// export class MyErrorStateMatcher implements ErrorStateMatcher {
+//   isErrorState(
+//     control: FormControl | null,
+//     form: FormGroupDirective | NgForm | null
+//   ): boolean {
+//     const isSubmitted = form && form.submitted;
+//     return !!(
+//       control &&
+//       control.invalid &&
+//       (control.dirty || control.touched || isSubmitted)
+//     );
+//   }
+// }
 
 @Component({
   selector: 'app-signin',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule,
-    MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    CommonModule,
-    MatRadioModule
+    MatRadioModule,
+    MatCheckboxModule,
   ],
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css'],
 })
 export class SigninComponent {
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+  gender: string = '';
+  buy: boolean = false;
+  rent: boolean = false;
+  formResults: any[] = [];
+  showTable: boolean = false;
 
-  matcher = new MyErrorStateMatcher();
+  onSubmit(form: any) {
+    if (form.valid) {
+      this.formResults.push(form.value);
+      console.log('Form Submitted!', form.value);
+      form.resetForm(); // Reset the form after successful submission
+    } else {
+      console.log('Form is invalid!');
+    }
+  }
 
-  onSubmit(form: NgForm) {
-    console.log('Form Submitted!', form);
+  showResults() {
+    this.showTable = true;
   }
 }

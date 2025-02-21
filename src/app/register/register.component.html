@@ -1,5 +1,7 @@
 <form #form="ngForm" (ngSubmit)="onSubmit(form)" aria-label="Registration Form">
+
   <div class="form-grid">
+    <h2 class="form-group">Form</h2>
     <!-- Name Field -->
     <mat-form-field>
       <mat-label>Name</mat-label>
@@ -7,7 +9,7 @@
         matInput
         placeholder="Ex. John"
         name="name"
-        ngModel
+        [(ngModel)]="modelName"
         required
         #nameInput="ngModel"
         aria-required="true"
@@ -24,7 +26,7 @@
         matInput
         placeholder="Ex. pat@example.com"
         name="email"
-        ngModel
+        [(ngModel)]="email"
         required
         email
         #emailInput="ngModel"
@@ -42,7 +44,7 @@
         matInput
         [matDatepicker]="picker"
         name="date"
-        ngModel
+        [(ngModel)]="selectedDate"
         placeholder="MM/DD/YYYY"
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -80,7 +82,7 @@
             matInput
             placeholder="Ex. Bethel"
             name="houseName"
-            ngModel
+            [(ngModel)]="houseName"
           />
         </mat-form-field>
 
@@ -91,7 +93,7 @@
             matInput
             placeholder="Ex. Ulloor"
             name="mainPlace"
-            ngModel
+            [(ngModel)]="mainPlace"
           />
         </mat-form-field>
 
@@ -102,7 +104,7 @@
             matInput
             placeholder="Ex. Post Office"
             name="post"
-            ngModel
+            [(ngModel)]="post"
           />
         </mat-form-field>
 
@@ -114,7 +116,7 @@
             type="number"
             placeholder="Ex. 695581"
             name="pin"
-            ngModel
+            [(ngModel)]="pin"
           />
         </mat-form-field>
 
@@ -171,44 +173,51 @@
   </div>
 </form>
 
-<!-- Results Table -->
-<table *ngIf="showTable && formResults.length > 0" class="example-table" aria-label="Form Results">
+<!-- Enhanced Results Table -->
+<table mat-table *ngIf="showTable && formResults.length > 0" class="enhanced-table" aria-label="Form Results">
+
+  <!-- Table Headers -->
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Date</th>
-      <th>Gender</th>
-      <th>Preference</th>
-      <th>House Name</th>
-      <th>Main Place</th>
-      <th>Post</th>
-      <th>Pin</th>
-      <th>State</th>
-      <th>District</th>
-      <th>Actions</th>
+      <th mat-header-cell>Name</th>
+      <th mat-header-cell>Email</th>
+      <th mat-header-cell>Date</th>
+      <th mat-header-cell>Gender</th>
+      <th mat-header-cell>Preference</th>
+      <th mat-header-cell>House Name</th>
+      <th mat-header-cell>Main Place</th>
+      <th mat-header-cell>Post</th>
+      <th mat-header-cell>Pin</th>
+      <th mat-header-cell>State</th>
+      <th mat-header-cell>District</th>
+      <th mat-header-cell>Actions</th>
     </tr>
   </thead>
+
+  <!-- Table Body -->
   <tbody>
-    <tr *ngFor="let result of formResults; let i = index">
-      <td>{{ result.name }}</td>
-      <td>{{ result.email }}</td>
-      <td>{{ result.date | date : "dd/MM/yyyy" }}</td>
-      <td>{{ result.gender === "1" ? "Male" : "Female" }}</td>
-      <td>
+    <tr *ngFor="let result of formResults; let i = index" class="table-row">
+      <td mat-cell>{{ result.name }}</td>
+      <td mat-cell>{{ result.email }}</td>
+      <td mat-cell>{{ result.date | date : "dd/MM/yyyy" }}</td>
+      <td mat-cell>{{ result.gender === "1" ? "Male" : "Female" }}</td>
+      <td mat-cell>
         {{ result.buy ? "Buy" : "" }}
         {{ result.rent ? "Rent" : "" }}
         {{ !result.buy && !result.rent ? "None" : "" }}
       </td>
-      <td>{{ result.houseName }}</td>
-      <td>{{ result.mainPlace }}</td>
-      <td>{{ result.post }}</td>
-      <td>{{ result.pin }}</td>
-      <td>{{ result.state }}</td>
-      <td>{{ result.district }}</td>
-      <td>
-        <button mat-button color="primary" (click)="editEntry(i)">Edit</button>
+      <td mat-cell>{{ result.houseName }}</td>
+      <td mat-cell>{{ result.mainPlace }}</td>
+      <td mat-cell>{{ result.post }}</td>
+      <td mat-cell>{{ result.pin }}</td>
+      <td mat-cell>{{ result.state }}</td>
+      <td mat-cell>{{ result.district }}</td>
+      <td mat-cell>
+        <button mat-icon-button color="primary" (click)="editEntry(i)" aria-label="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
+

@@ -174,3 +174,55 @@ mat-error {
     grid-template-columns: 1fr;
   }
 }
+/* Enhanced Table Styling */
+.enhanced-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.enhanced-table th, .enhanced-table td {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.enhanced-table thead {
+  background-color: #3f51b5;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.enhanced-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.enhanced-table tbody tr:hover {
+  background-color: #e3f2fd;
+  transition: background-color 0.3s ease;
+}
+
+.enhanced-table th {
+  font-weight: bold;
+}
+
+.table-row td {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Edit Button */
+mat-icon {
+  vertical-align: middle;
+}
+
+button[mat-icon-button] {
+  transition: transform 0.2s ease;
+}
+
+button[mat-icon-button]:hover {
+  transform: scale(1.1);
+}

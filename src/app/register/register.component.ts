@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -22,11 +23,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatRadioModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatIconModule,
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
-export class RegisterComponent  {
+export class RegisterComponent {
   buy: boolean = false;
   rent: boolean = false;
   modelName: string = '';
@@ -36,13 +38,18 @@ export class RegisterComponent  {
   editIndex: number | null = null;
   selectedState: string = '';
   selectedDistrict: string = '';
+  email: string = '';
+  houseName: string = '';
+  mainPlace: string = '';
+  post: string = '';
+  pin: string = '';
 
   filteredDistricts: string[] = [];
   selectedDate: Date | null = null;
 
   states: string[] = ['Kerala', 'Tamil Nadu'];
   districts: { [key: string]: string[] } = {
-    'Kerala': ['Kochi', 'Trivandrum', 'Calicut'],
+    Kerala: ['Kochi', 'Trivandrum', 'Calicut'],
     'Tamil Nadu': ['Chennai', 'Dindigul', 'Thoothukudi'],
   };
 
@@ -63,13 +70,20 @@ export class RegisterComponent  {
     this.onStateChange(this.selectedState);
     this.selectedDistrict = data.district;
     this.selectedDate = new Date(data.date);
+    this.email = data.email;
+    this.houseName = data.houseName;
+    this.mainPlace = data.mainPlace;
+    this.post = data.post;
+    this.pin = data.pin;
 
     setTimeout(() => {
       const form = document.querySelector('form') as HTMLFormElement;
       (form.elements.namedItem('email') as HTMLInputElement).value = data.email;
       (form.elements.namedItem('date') as HTMLInputElement).value = data.date;
-      (form.elements.namedItem('houseName') as HTMLInputElement).value = data.houseName;
-      (form.elements.namedItem('mainPlace') as HTMLInputElement).value = data.mainPlace;
+      (form.elements.namedItem('houseName') as HTMLInputElement).value =
+        data.houseName;
+      (form.elements.namedItem('mainPlace') as HTMLInputElement).value =
+        data.mainPlace;
       (form.elements.namedItem('post') as HTMLInputElement).value = data.post;
       (form.elements.namedItem('pin') as HTMLInputElement).value = data.pin;
     }, 0);
@@ -77,20 +91,37 @@ export class RegisterComponent  {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
+      const formData = {
+        name: this.modelName,
+        email: this.email,
+        date: this.selectedDate,
+        gender: this.gender,
+        buy: this.buy,
+        rent: this.rent,
+        houseName: this.houseName,
+        mainPlace: this.mainPlace,
+        post: this.post,
+        pin: this.pin,
+        state: this.selectedState,
+        district: this.selectedDistrict,
+      };
+
       if (this.editIndex !== null) {
         // Update existing entry
-        this.formResults[this.editIndex] = { ...form.value };
-        this.editIndex = null; // Reset edit mode
+        this.formResults[this.editIndex] = { ...formData };
+        this.editIndex = null; // Exit edit mode
       } else {
         // Add new entry
-        this.formResults.push(form.value);
+        this.formResults.push(formData);
       }
+
       form.resetForm();
       this.showResults();
     } else {
       console.log('Form is invalid!');
     }
   }
+
 
   showResults() {
     this.showTable = true;
@@ -100,4 +131,3 @@ export class RegisterComponent  {
 function showResults() {
   throw new Error('Function not implemented.');
 }
-

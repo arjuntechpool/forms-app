@@ -7,7 +7,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-register',
@@ -26,36 +26,32 @@ import { MatSelectModule} from '@angular/material/select';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
-
+export class RegisterComponent  {
   buy: boolean = false;
   rent: boolean = false;
-  // result: any = {};
   modelName: string = '';
   gender: string = '';
   showTable: boolean = false;
   formResults: any[] = [];
+  editIndex: number | null = null;
+  selectedState: string = '';
+  selectedDistrict: string = '';
 
-   states: string[] = ['Kerala', 'Tamil Nadu'];
+  filteredDistricts: string[] = [];
+  selectedDate: Date | null = null;
 
-   districts: { [key: string]: string[] } = {
-     'Kerala': ['Kochi', 'Trivandrum', 'Calicut'],
-     'Tamil Nadu': ['Chennai', 'Dindigul', 'Thoothukudi'],
-   };
+  states: string[] = ['Kerala', 'Tamil Nadu'];
+  districts: { [key: string]: string[] } = {
+    'Kerala': ['Kochi', 'Trivandrum', 'Calicut'],
+    'Tamil Nadu': ['Chennai', 'Dindigul', 'Thoothukudi'],
+  };
 
-   selectedState: string = '';
-   selectedDistrict: string = '';
+  onStateChange(state: string) {
+    this.filteredDistricts = this.districts[state] || [];
+    this.selectedDistrict = '';
+  }
 
-   filteredDistricts: string[] = [];
-   selectedDate: Date | null = null;
-
-   onStateChange(state: string) {
-     this.filteredDistricts = this.districts[state] || [];
-     this.selectedDistrict = '';
-   }
-
-   editIndex: number | null = null;
-   editEntry(index: number) {
+  editEntry(index: number) {
     const data = this.formResults[index];
     this.editIndex = index;
 
@@ -68,7 +64,6 @@ export class RegisterComponent {
     this.selectedDistrict = data.district;
     this.selectedDate = new Date(data.date);
 
-
     setTimeout(() => {
       const form = document.querySelector('form') as HTMLFormElement;
       (form.elements.namedItem('email') as HTMLInputElement).value = data.email;
@@ -79,7 +74,7 @@ export class RegisterComponent {
       (form.elements.namedItem('pin') as HTMLInputElement).value = data.pin;
     }, 0);
   }
-  
+
   onSubmit(form: NgForm) {
     if (form.valid) {
       if (this.editIndex !== null) {
@@ -91,6 +86,7 @@ export class RegisterComponent {
         this.formResults.push(form.value);
       }
       form.resetForm();
+      this.showResults();
     } else {
       console.log('Form is invalid!');
     }
@@ -99,5 +95,9 @@ export class RegisterComponent {
   showResults() {
     this.showTable = true;
   }
-
 }
+
+function showResults() {
+  throw new Error('Function not implemented.');
+}
+

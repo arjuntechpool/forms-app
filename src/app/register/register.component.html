@@ -1,17 +1,24 @@
-<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+<form #form="ngForm" (ngSubmit)="onSubmit(form)" aria-label="Registration Form">
   <div class="form-grid">
-    <mat-form-field class="example-full-width" appearance="fill">
+    <!-- Name Field -->
+    <mat-form-field>
       <mat-label>Name</mat-label>
       <input
         matInput
         placeholder="Ex. John"
         name="name"
-        [(ngModel)]="modelName"
+        ngModel
         required
+        #nameInput="ngModel"
+        aria-required="true"
       />
+      <mat-error *ngIf="nameInput.invalid && nameInput.touched">
+        Name is required
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <!-- Email Field -->
+    <mat-form-field>
       <mat-label>Email</mat-label>
       <input
         matInput
@@ -20,10 +27,16 @@
         ngModel
         required
         email
+        #emailInput="ngModel"
+        aria-required="true"
       />
+      <mat-error *ngIf="emailInput.invalid && emailInput.touched">
+        Please enter a valid email address
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <!-- Date Field -->
+    <mat-form-field>
       <mat-label>Choose a date</mat-label>
       <input
         matInput
@@ -36,8 +49,8 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-
-    <div class="form-group">
+    <!-- Gender Selection -->
+    <div class="form-group" role="group" aria-label="Gender selection">
       <mat-label>Gender</mat-label>
       <mat-radio-group [(ngModel)]="gender" name="gender" class="gender-group">
         <mat-radio-button value="1">Male</mat-radio-button>
@@ -45,90 +58,121 @@
       </mat-radio-group>
     </div>
 
-    <section class="example-section">
+    <!-- Buy or Rent Selection -->
+    <section class="example-section" role="group" aria-label="Buy or rent selection">
       <mat-label>Buy or rent</mat-label>
-      <mat-checkbox class="example-margin" [(ngModel)]="buy" name="buy"
-        >Buy</mat-checkbox
-      >
-      <mat-checkbox class="example-margin" [(ngModel)]="rent" name="rent"
-        >Rent</mat-checkbox
-      >
+      <mat-checkbox [(ngModel)]="buy" name="buy" class="example-margin">
+        Buy
+      </mat-checkbox>
+      <mat-checkbox [(ngModel)]="rent" name="rent" class="example-margin">
+        Rent
+      </mat-checkbox>
     </section>
 
-    <!-- Address Section Wrapped in Form Group -->
+    <!-- Address Section -->
     <div class="form-group">
       <mat-label>Address</mat-label>
       <section class="address-grid">
-        <mat-form-field class="example-full-width" appearance="fill">
+        <!-- House Name -->
+        <mat-form-field appearance="fill">
           <mat-label>House Name</mat-label>
-          <input matInput placeholder="Ex. Bethel" name="houseName" ngModel />
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Main Place</mat-label>
-          <input matInput placeholder="Ex. Ulloor" name="mainPlace" ngModel />
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Post</mat-label>
-          <input matInput placeholder="Ex. Post Office" name="post" ngModel />
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Pin</mat-label>
           <input
             matInput
-            placeholder="Ex. 123456"
-            name="pin"
+            placeholder="Ex. Bethel"
+            name="houseName"
             ngModel
-            type="number"
           />
         </mat-form-field>
-        <!-- State Dropdown -->
+
+        <!-- Main Place -->
+        <mat-form-field appearance="fill">
+          <mat-label>Main Place</mat-label>
+          <input
+            matInput
+            placeholder="Ex. Ulloor"
+            name="mainPlace"
+            ngModel
+          />
+        </mat-form-field>
+
+        <!-- Post -->
+        <mat-form-field appearance="fill">
+          <mat-label>Post</mat-label>
+          <input
+            matInput
+            placeholder="Ex. Post Office"
+            name="post"
+            ngModel
+          />
+        </mat-form-field>
+
+        <!-- PIN -->
+        <mat-form-field appearance="fill">
+          <mat-label>PIN</mat-label>
+          <input
+            matInput
+            type="number"
+            placeholder="Ex. 695581"
+            name="pin"
+            ngModel
+          />
+        </mat-form-field>
+
+        <!-- State Selection -->
         <mat-form-field>
           <mat-label>Select State</mat-label>
           <mat-select
             [(ngModel)]="selectedState"
-            placeholder="Select State"
-            (selectionChange)="onStateChange($event.value)"
             name="state"
+            (selectionChange)="onStateChange($event.value)"
+
           >
-            <mat-option *ngFor="let state of states" [value]="state">{{
-              state
-            }}</mat-option>
+            <mat-option *ngFor="let state of states" [value]="state">
+              {{state}}
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
-        <!-- District Dropdown (Filtered Based on State) -->
+        <!-- District Selection -->
         <mat-form-field>
           <mat-label>Select District</mat-label>
           <mat-select
             [(ngModel)]="selectedDistrict"
-            placeholder="Select District"
-            [disabled]="!filteredDistricts.length"
             name="district"
+            [disabled]="!filteredDistricts.length"
           >
-            <mat-option
-              *ngFor="let district of filteredDistricts"
-              [value]="district"
-              >{{ district }}</mat-option
-            >
+            <mat-option *ngFor="let district of filteredDistricts" [value]="district">
+              {{district}}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </section>
     </div>
   </div>
 
-  <button mat-raised-button color="primary" type="submit">Register</button>
-  <button
-    mat-raised-button
-    color="accent"
-    type="button"
-    (click)="showResults()"
-  >
-    Show Results
-  </button>
+  <!-- Form Buttons -->
+  <div class="button-group">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      {{editIndex !== null ? 'Update' : 'Register'}}
+    </button>
+    <!-- <button
+      mat-raised-button
+      color="accent"
+      type="button"
+      (click)="showResults()"
+    >
+      Show Results
+    </button> -->
+  </div>
 </form>
 
-<!-- Table to Show Form Results -->
-<table *ngIf="showTable && formResults.length > 0" class="example-table">
+<!-- Results Table -->
+<table *ngIf="showTable && formResults.length > 0" class="example-table" aria-label="Form Results">
   <thead>
     <tr>
       <th>Name</th>
@@ -142,6 +186,7 @@
       <th>Pin</th>
       <th>State</th>
       <th>District</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>

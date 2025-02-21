@@ -104,9 +104,16 @@ export class RegisterComponent {
       form.resetForm();
       this.showResults();
     } else {
+      // Mark all fields as touched to trigger validation messages
+      Object.keys(form.controls).forEach((key) => {
+        const control = form.controls[key];
+        control?.markAsTouched();
+      });
+
       console.log('Form is invalid!');
     }
   }
+
 
   showResults() {
     this.showTable = true;

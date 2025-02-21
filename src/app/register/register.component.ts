@@ -43,7 +43,6 @@ export class RegisterComponent {
   mainPlace: string = '';
   post: string = '';
   pin: string = '';
-
   filteredDistricts: string[] = [];
   selectedDate: Date | null = null;
 
@@ -62,6 +61,7 @@ export class RegisterComponent {
     const data = this.formResults[index];
     this.editIndex = index;
 
+    // Directly bind data to ngModel properties
     this.modelName = data.name;
     this.gender = data.gender;
     this.buy = data.buy;
@@ -75,18 +75,6 @@ export class RegisterComponent {
     this.mainPlace = data.mainPlace;
     this.post = data.post;
     this.pin = data.pin;
-
-    setTimeout(() => {
-      const form = document.querySelector('form') as HTMLFormElement;
-      (form.elements.namedItem('email') as HTMLInputElement).value = data.email;
-      (form.elements.namedItem('date') as HTMLInputElement).value = data.date;
-      (form.elements.namedItem('houseName') as HTMLInputElement).value =
-        data.houseName;
-      (form.elements.namedItem('mainPlace') as HTMLInputElement).value =
-        data.mainPlace;
-      (form.elements.namedItem('post') as HTMLInputElement).value = data.post;
-      (form.elements.namedItem('pin') as HTMLInputElement).value = data.pin;
-    }, 0);
   }
 
   onSubmit(form: NgForm) {
@@ -107,11 +95,9 @@ export class RegisterComponent {
       };
 
       if (this.editIndex !== null) {
-        // Update existing entry
         this.formResults[this.editIndex] = { ...formData };
-        this.editIndex = null; // Exit edit mode
+        this.editIndex = null;
       } else {
-        // Add new entry
         this.formResults.push(formData);
       }
 
@@ -121,7 +107,6 @@ export class RegisterComponent {
       console.log('Form is invalid!');
     }
   }
-
 
   showResults() {
     this.showTable = true;

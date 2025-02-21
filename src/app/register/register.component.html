@@ -1,1 +1,169 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <div class="form-grid">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        placeholder="Ex. John"
+        name="name"
+        [(ngModel)]="modelName"
+        required
+      />
+    </mat-form-field>
 
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="Ex. pat@example.com"
+        name="email"
+        ngModel
+        required
+        email
+      />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Choose a date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        name="date"
+        ngModel
+        placeholder="MM/DD/YYYY"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <div class="form-group">
+      <mat-label>Gender</mat-label>
+      <mat-radio-group [(ngModel)]="gender" name="gender" class="gender-group">
+        <mat-radio-button value="1">Male</mat-radio-button>
+        <mat-radio-button value="2">Female</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <section class="example-section">
+      <mat-label>Buy or rent</mat-label>
+      <mat-checkbox class="example-margin" [(ngModel)]="buy" name="buy"
+        >Buy</mat-checkbox
+      >
+      <mat-checkbox class="example-margin" [(ngModel)]="rent" name="rent"
+        >Rent</mat-checkbox
+      >
+    </section>
+
+    <!-- Address Section Wrapped in Form Group -->
+    <div class="form-group">
+      <mat-label>Address</mat-label>
+      <section class="address-grid">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>House Name</mat-label>
+          <input matInput placeholder="Ex. Bethel" name="houseName" ngModel />
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Main Place</mat-label>
+          <input matInput placeholder="Ex. Ulloor" name="mainPlace" ngModel />
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Post</mat-label>
+          <input matInput placeholder="Ex. Post Office" name="post" ngModel />
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Pin</mat-label>
+          <input
+            matInput
+            placeholder="Ex. 123456"
+            name="pin"
+            ngModel
+            type="number"
+          />
+        </mat-form-field>
+        <!-- State Dropdown -->
+        <mat-form-field>
+          <mat-label>Select State</mat-label>
+          <mat-select
+            [(ngModel)]="selectedState"
+            placeholder="Select State"
+            (selectionChange)="onStateChange($event.value)"
+            name="state"
+          >
+            <mat-option *ngFor="let state of states" [value]="state">{{
+              state
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- District Dropdown (Filtered Based on State) -->
+        <mat-form-field>
+          <mat-label>Select District</mat-label>
+          <mat-select
+            [(ngModel)]="selectedDistrict"
+            placeholder="Select District"
+            [disabled]="!filteredDistricts.length"
+            name="district"
+          >
+            <mat-option
+              *ngFor="let district of filteredDistricts"
+              [value]="district"
+              >{{ district }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </section>
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" type="submit">Register</button>
+  <button
+    mat-raised-button
+    color="accent"
+    type="button"
+    (click)="showResults()"
+  >
+    Show Results
+  </button>
+</form>
+
+<!-- Table to Show Form Results -->
+<table *ngIf="showTable && formResults.length > 0" class="example-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Date</th>
+      <th>Gender</th>
+      <th>Preference</th>
+      <th>House Name</th>
+      <th>Main Place</th>
+      <th>Post</th>
+      <th>Pin</th>
+      <th>State</th>
+      <th>District</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let result of formResults; let i = index">
+      <td>{{ result.name }}</td>
+      <td>{{ result.email }}</td>
+      <td>{{ result.date | date : "dd/MM/yyyy" }}</td>
+      <td>{{ result.gender === "1" ? "Male" : "Female" }}</td>
+      <td>
+        {{ result.buy ? "Buy" : "" }}
+        {{ result.rent ? "Rent" : "" }}
+        {{ !result.buy && !result.rent ? "None" : "" }}
+      </td>
+      <td>{{ result.houseName }}</td>
+      <td>{{ result.mainPlace }}</td>
+      <td>{{ result.post }}</td>
+      <td>{{ result.pin }}</td>
+      <td>{{ result.state }}</td>
+      <td>{{ result.district }}</td>
+      <td>
+        <button mat-button color="primary" (click)="editEntry(i)">Edit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

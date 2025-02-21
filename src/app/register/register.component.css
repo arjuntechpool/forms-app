@@ -1,0 +1,176 @@
+/* Form container */
+form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Grid layout for form fields */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+/* Style form fields */
+mat-form-field {
+  width: 100%;
+}
+
+/* Section labels */
+mat-label {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Radio buttons and checkboxes */
+mat-radio-group,
+.example-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Gender Radio Buttons */
+.gender-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Form Group Styling */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+/* Buttons styling */
+button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"] {
+  background-color: #1976d2;
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background-color: #155a9c;
+}
+
+button[type="button"] {
+  background-color: #388e3c;
+  color: white;
+}
+
+button[type="button"]:hover {
+  background-color: #2e7030;
+}
+
+/* Error message styling */
+mat-error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Table styling */
+.example-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.example-table th,
+.example-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.example-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.example-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.example-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  mat-radio-group,
+  .example-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+/* Address Section Styling */
+.address-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  background-color: #f0f0f0;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+/* Ensure mat-form-fields use full width */
+.address-grid mat-form-field {
+  width: 100%;
+}
+
+/* Responsive adjustments for address */
+@media (max-width: 600px) {
+  .address-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Form Group Styling */
+.form-group mat-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Minor fix for form grid */
+.form-grid > .form-group {
+  grid-column: span 2;
+}
+
+/* Responsive adjustments for address */
+@media (max-width: 600px) {
+  .address-grid {
+    grid-template-columns: 1fr;
+  }
+}

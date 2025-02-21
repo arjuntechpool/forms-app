@@ -51,11 +51,11 @@
     <!-- Gender Radio Buttons -->
     <div class="form-group">
       <mat-label>Gender</mat-label>
-      <mat-radio-group name="gender" ngModel required class="gender-group">
+      <mat-radio-group name="gender" ngModel  class="gender-group">
         <mat-radio-button value="1">Male</mat-radio-button>
         <mat-radio-button value="2">Female</mat-radio-button>
       </mat-radio-group>
-      <mat-error
+      <!-- <mat-error
         *ngIf="
           form.submitted &&
           form.controls['gender']?.invalid &&
@@ -63,7 +63,7 @@
         "
       >
         Gender is <strong>required</strong>
-      </mat-error>
+      </mat-error> -->
     </div>
 
     <!-- Buy or Rent Checkboxes -->

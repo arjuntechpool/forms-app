@@ -1,14 +1,10 @@
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Component } from '@angular/core';
 import {
-  FormControl,
-  FormGroupDirective,
   FormsModule,
-  NgForm,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
-import { ErrorStateMatcher, MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -58,7 +54,7 @@ export class SigninComponent {
     if (form.valid) {
       this.formResults.push(form.value);
       console.log('Form Submitted!', form.value);
-      form.resetForm(); // Reset the form after successful submission
+      form.resetForm();
     } else {
       console.log('Form is invalid!');
     }

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -74,7 +74,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 
     if (this.isFormValid()) {
       // Save the form data
-      const formData = { ...this.model, date: this.formatDate(this.model.date) };
+      const formData = { ...this.model };
       this.formResults.push(formData);
       this.filteredResults.data = [...this.formResults]; // Update the table data
       this.showTable = true;
@@ -154,10 +154,13 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 
   // Delete an entry
   deleteEntry(index: number) {
-    this.formResults.splice(index, 1); // Remove the entry at the specified index
-    this.filteredResults.data = [...this.formResults]; // Update the table data
-    if (this.formResults.length === 0) {
-      this.showTable = false; // Hide the table if no entries are left
+    const confirmed = confirm('Are you sure you want to delete this entry?');
+    if (confirmed) {
+      this.formResults.splice(index, 1); // Remove the entry at the specified index
+      this.filteredResults.data = [...this.formResults]; // Update the table data
+      if (this.formResults.length === 0) {
+        this.showTable = false; // Hide the table if no entries are left
+      }
     }
   }
 
@@ -174,8 +177,4 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     this.filteredResults.filter = filterValue.trim().toLowerCase();
   }
 
-  // Handle page change
-  onPageChange(event: PageEvent) {
-    this.pageSize = event.pageSize;
-  }
 }

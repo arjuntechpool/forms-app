@@ -1,15 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-signup',
+  standalone: true,
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatTableModule, MatFormFieldModule],
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
+  ngOnInit(): void {
+    // Initialization logic can go here
+  }
+
   // Model to store form values
   model = {
     name: '',
@@ -25,8 +31,28 @@ export class SignupComponent {
   };
 
   formResults: any[] = []; // Store submitted results
+  filteredResults: any[] = [];
+  displayedColumns: string[] = [
+    'name',
+    'email',
+    'date',
+    'gender',
+    'preference',
+    'houseName',
+    'mainPlace',
+    'post',
+    'pin',
+    'actions',
+  ];
   showTable = false; // Control table visibility
   submitted = false; // Track if the form has been submitted
+
+  dataSource = new MatTableDataSource(this.formResults);
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   // Handle button click
   onSubmit() {
@@ -46,7 +72,9 @@ export class SignupComponent {
   // Validate form fields
   isFormValid(): boolean {
     // Check if the email already exists in formResults
-    const emailExists = this.formResults.some(entry => entry.email === this.model.email);
+    const emailExists = this.formResults.some(
+      (entry) => entry.email === this.model.email
+    );
     if (emailExists) {
       alert('This email is already registered.');
       return false;
@@ -117,7 +145,9 @@ export class SignupComponent {
 
   // Delete an entry with confirmation
   deleteEntry(index: number) {
-    const confirmDelete = confirm('Are you sure you want to delete this entry?');
+    const confirmDelete = confirm(
+      'Are you sure you want to delete this entry?'
+    );
     if (confirmDelete) {
       this.formResults.splice(index, 1); // Remove the entry at the specified index
       if (this.formResults.length === 0) {

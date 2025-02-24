@@ -183,7 +183,14 @@
   <input matInput (keyup)="applyFilter($event)" placeholder="Search records">
 </mat-form-field>
 
-<!-- Updated Results Table using Angular Material -->
+<!-- Results Table -->
+<mat-paginator [length]="filteredResults.data.length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="onPageChange($event)"
+               aria-label="Select page">
+</mat-paginator>
+
 <mat-table *ngIf="showTable && filteredResults.data.length > 0" [dataSource]="filteredResults" class="mat-elevation-z8" aria-label="Form Results">
   <!-- Name Column -->
   <ng-container matColumnDef="name">
@@ -252,4 +259,3 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
-

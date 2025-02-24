@@ -1,22 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-signup',
-  standalone: true,
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  imports: [CommonModule, FormsModule, MatTableModule, MatFormFieldModule,MatInputModule],
+  standalone: true,
+  imports: [
+    FormsModule,
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
 })
-export class SignupComponent implements OnInit {
-  ngOnInit(): void {
-    // Initialization logic can go here
-  }
-
+export class SignupComponent {
   // Model to store form values
   model = {
     name: '',
@@ -32,11 +36,10 @@ export class SignupComponent implements OnInit {
   };
 
   formResults: any[] = []; // Store submitted results
-
   showTable = false; // Control table visibility
   submitted = false; // Track if the form has been submitted
 
-  filteredResults = new MatTableDataSource<any>(this.formResults); // For filtering
+  // Table properties
   displayedColumns: string[] = [
     'name',
     'email',
@@ -49,14 +52,9 @@ export class SignupComponent implements OnInit {
     'pin',
     'actions',
   ];
-
-  // Apply filter method
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value
-      .trim()
-      .toLowerCase();
-    this.filteredResults.filter = filterValue;
-  }
+  filteredResults = new MatTableDataSource<any>([]); // DataSource for the table
+  pageSize = 10; // Default page size
+  pageSizeOptions = [5, 10, 25, 100]; // Page size options
 
   // Handle button click
   onSubmit() {
@@ -64,8 +62,9 @@ export class SignupComponent implements OnInit {
 
     if (this.isFormValid()) {
       // Save the form data
-      this.formResults.push({ ...this.model });
-      this.filteredResults.data = this.formResults;
+      const formData = { ...this.model, date: this.formatDate(this.model.date) };
+      this.formResults.push(formData);
+      this.filteredResults.data = [...this.formResults]; // Update the table data
       this.showTable = true;
       this.resetForm();
       this.submitted = false;
@@ -76,14 +75,6 @@ export class SignupComponent implements OnInit {
 
   // Validate form fields
   isFormValid(): boolean {
-    // Check if the email already exists in formResults
-    // const emailExists = this.formResults.some(
-    //   (entry) => entry.email === this.model.email
-    // );
-    // if (emailExists) {
-    //   alert('This email is already registered.');
-    //   return false;
-    // }
     return (
       this.isNameValid() &&
       this.isEmailValid() &&
@@ -146,24 +137,33 @@ export class SignupComponent implements OnInit {
     const entry = this.formResults[index];
     this.model = { ...entry };
     this.formResults.splice(index, 1); // Remove the entry from the table
+    this.filteredResults.data = [...this.formResults]; // Update the table data
   }
 
-  // Delete an entry with confirmation
+  // Delete an entry
   deleteEntry(index: number) {
-    const confirmDelete = confirm(
-      'Are you sure you want to delete this entry?'
-    );
-    if (confirmDelete) {
-      this.formResults.splice(index, 1); // Remove the entry at the specified index
-      if (this.formResults.length === 0) {
-        this.showTable = false; // Hide the table if no entries are left
-      }
+    this.formResults.splice(index, 1); // Remove the entry at the specified index
+    this.filteredResults.data = [...this.formResults]; // Update the table data
+    if (this.formResults.length === 0) {
+      this.showTable = false; // Hide the table if no entries are left
     }
   }
 
   // Format date as dd/MM/yyyy
   formatDate(dateString: string): string {
+    if (!dateString) return ''; // Handle null or undefined
     const date = new Date(dateString);
     return date.toLocaleDateString('en-GB');
+  }
+
+  // Apply filter to the table
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.filteredResults.filter = filterValue.trim().toLowerCase();
+  }
+
+  // Handle page change
+  onPageChange(event: PageEvent) {
+    this.pageSize = event.pageSize;
   }
 }

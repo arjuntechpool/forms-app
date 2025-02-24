@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-signup',
@@ -18,9 +19,12 @@ import { MatInputModule } from '@angular/material/input';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSortModule,
   ],
 })
-export class SignupComponent {
+
+  export class SignupComponent implements AfterViewInit {
+
   // Model to store form values
   model = {
     name: '',
@@ -55,6 +59,14 @@ export class SignupComponent {
   filteredResults = new MatTableDataSource<any>([]); // DataSource for the table
   pageSize = 10; // Default page size
   pageSizeOptions = [5, 10, 25, 100]; // Page size options
+  dataSource!: MatTableDataSource<`formresults`>;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+
+  ngAfterViewInit() {
+    this.filteredResults.paginator = this.paginator;
+    this.filteredResults.sort = this.sort;
+  }
 
   // Handle button click
   onSubmit() {

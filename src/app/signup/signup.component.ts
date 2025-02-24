@@ -40,7 +40,8 @@ export class SignupComponent implements AfterViewInit {
   formResults: any[] = [];
   showTable = false;
   submitted = false;
-  editingIndex: number | null = null; // Track the index of the row being edited
+  editingIndex: number | null = null;
+  isEditing: boolean = false;
 
   displayedColumns: string[] = [
     'name',
@@ -150,6 +151,7 @@ export class SignupComponent implements AfterViewInit {
   editEntry(index: number) {
     const entry = this.formResults[index];
     this.model = { ...entry };
+    this.isEditing = true;
     this.editingIndex = index;
   }
 

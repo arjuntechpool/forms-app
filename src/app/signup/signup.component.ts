@@ -45,6 +45,12 @@ export class SignupComponent {
 
   // Validate form fields
   isFormValid(): boolean {
+    // Check if the email already exists in formResults
+    const emailExists = this.formResults.some(entry => entry.email === this.model.email);
+    if (emailExists) {
+      alert('This email is already registered.');
+      return false;
+    }
     return (
       this.isNameValid() &&
       this.isEmailValid() &&

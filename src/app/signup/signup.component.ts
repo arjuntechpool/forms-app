@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
 })
 export class SignupComponent {
   model = {
@@ -25,12 +25,16 @@ export class SignupComponent {
 
   formResults: any[] = [];
   showTable = false;
+  submitted = false; // Track if the form has been submitted
 
   onSubmit() {
+    this.submitted = true; // Set submitted to true on form submission
+
     if (this.isFormValid()) {
       this.formResults.push({ ...this.model });
       this.showTable = true;
       this.resetForm();
+      this.submitted = false; // Reset submitted state after successful submission
     } else {
       alert('Please fill out all required fields correctly.');
     }
@@ -43,7 +47,7 @@ export class SignupComponent {
       this.model.email.includes('@') &&
       this.model.date.trim() !== '' &&
       this.model.gender.trim() !== '' &&
-      pinMatch !== null
+      pinMatch !== null 
     );
   }
 

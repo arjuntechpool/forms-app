@@ -16,7 +16,7 @@
         #nameInput="ngModel"
         aria-required="true"
       />
-      <span *ngIf="nameInput.invalid && nameInput.touched" class="error-message" aria-live="polite">
+      <span *ngIf="submitted && nameInput.invalid" class="error-message" aria-live="polite">
         Name is required and must be at least 2 characters.
       </span>
     </div>
@@ -34,7 +34,7 @@
         #emailInput="ngModel"
         aria-required="true"
       />
-      <span *ngIf="emailInput.invalid && emailInput.touched" class="error-message" aria-live="polite">
+      <span *ngIf="submitted && emailInput.invalid" class="error-message" aria-live="polite">
         Please enter a valid email address.
       </span>
     </div>
@@ -51,7 +51,7 @@
         #dateInput="ngModel"
         aria-required="true"
       />
-      <span *ngIf="dateInput.invalid && dateInput.touched" class="error-message" aria-live="polite">
+      <span *ngIf="submitted && dateInput.invalid" class="error-message" aria-live="polite">
         Date is required.
       </span>
     </div>
@@ -59,7 +59,7 @@
     <!-- Gender Selection -->
     <div class="form-group" role="group" aria-label="Gender selection">
       <label>Gender</label>
-      <div>
+      <div class="radio-group">
         <label>
           <input type="radio" name="gender" value="1" [(ngModel)]="model.gender" required #genderInput="ngModel" /> Male
         </label>
@@ -67,7 +67,7 @@
           <input type="radio" name="gender" value="2" [(ngModel)]="model.gender" /> Female
         </label>
       </div>
-      <span *ngIf="genderInput.invalid && genderInput.touched" class="error-message" aria-live="polite">
+      <span *ngIf="submitted && genderInput.invalid" class="error-message" aria-live="polite">
         Gender is required.
       </span>
     </div>
@@ -75,7 +75,7 @@
     <!-- Buy or Rent Selection -->
     <div class="form-group" role="group" aria-label="Buy or rent selection">
       <label>Buy or rent</label>
-      <div>
+      <div class="checkbox-group">
         <label>
           <input type="checkbox" name="buy" [(ngModel)]="model.buy" /> Buy
         </label>
@@ -138,18 +138,18 @@
             pattern="[0-9]{6}"
             #pinInput="ngModel"
           />
-          <span *ngIf="pinInput.invalid && pinInput.touched" class="error-message" aria-live="polite">
+          <span *ngIf="submitted && pinInput.invalid" class="error-message" aria-live="polite">
             PIN must be a 6-digit number.
           </span>
         </div>
       </div>
     </div>
+  </div>
 
     <!-- Form Buttons -->
-  </div>
-  <div class="button-group">
-    <button class="button-group" type="submit" [disabled]="!isFormValid()">Register</button>
-  </div>
+    <div class="button-group">
+      <button type="submit">Register</button>
+    </div>
 </form>
 
 <!-- Results Table -->

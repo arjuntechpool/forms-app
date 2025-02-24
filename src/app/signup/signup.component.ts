@@ -115,11 +115,14 @@ export class SignupComponent {
     this.formResults.splice(index, 1); // Remove the entry from the table
   }
 
-  // Delete an entry
+  // Delete an entry with confirmation
   deleteEntry(index: number) {
-    this.formResults.splice(index, 1); // Remove the entry at the specified index
-    if (this.formResults.length === 0) {
-      this.showTable = false; // Hide the table if no entries are left
+    const confirmDelete = confirm('Are you sure you want to delete this entry?');
+    if (confirmDelete) {
+      this.formResults.splice(index, 1); // Remove the entry at the specified index
+      if (this.formResults.length === 0) {
+        this.showTable = false; // Hide the table if no entries are left
+      }
     }
   }
 

@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
 })
 export class SignupComponent {
   // Model to store form values
@@ -45,15 +45,40 @@ export class SignupComponent {
 
   // Validate form fields
   isFormValid(): boolean {
-    const pinMatch = this.model.pin.match(/^\d{6}$/);
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return (
-      this.model.name.length >= 2 &&
-      emailPattern.test(this.model.email) &&
-      this.model.date.trim() !== '' &&
-      this.model.gender.trim() !== '' &&
-      pinMatch !== null
+      this.isNameValid() &&
+      this.isEmailValid() &&
+      this.isDateValid() &&
+      this.isGenderValid() &&
+      this.isPinValid()
     );
+  }
+
+  // Name validation
+  isNameValid(): boolean {
+    return this.model.name.length >= 2;
+  }
+
+  // Email validation
+  isEmailValid(): boolean {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(this.model.email);
+  }
+
+  // Date validation
+  isDateValid(): boolean {
+    return this.model.date.trim() !== '';
+  }
+
+  // Gender validation
+  isGenderValid(): boolean {
+    return this.model.gender.trim() !== '';
+  }
+
+  // PIN validation
+  isPinValid(): boolean {
+    const pinMatch = this.model.pin.match(/^\d{6}$/);
+    return pinMatch !== null;
   }
 
   // Reset form fields
@@ -75,13 +100,6 @@ export class SignupComponent {
   // Clear form without submitting
   clearForm() {
     this.resetForm();
-  }
-  isValidEmail(email: string): boolean {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailPattern.test(email);
-  }
-  isValidPin(pin: string): boolean {
-    return /^\d{6}$/.test(pin);
   }
 
   // Edit an entry

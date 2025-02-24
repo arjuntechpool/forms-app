@@ -76,7 +76,7 @@ form {
 .button-group {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 1px;
   margin-top: 24px;
 }
 

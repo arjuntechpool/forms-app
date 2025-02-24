@@ -13,7 +13,7 @@
         [(ngModel)]="model.name"
         aria-required="true"
       />
-      <span *ngIf="submitted && model.name.length < 2" class="error-message" aria-live="polite">
+      <span *ngIf="submitted && !isNameValid()" class="error-message" aria-live="polite">
         Name is required and must be at least 2 characters.
       </span>
     </div>
@@ -29,7 +29,7 @@
         [(ngModel)]="model.email"
         aria-required="true"
       />
-      <span *ngIf="submitted && !isValidEmail(model.email)" class="error-message" aria-live="polite">
+      <span *ngIf="submitted && !isEmailValid()" class="error-message" aria-live="polite">
         Please enter a valid email address.
       </span>
     </div>
@@ -44,7 +44,7 @@
         [(ngModel)]="model.date"
         aria-required="true"
       />
-      <span *ngIf="submitted && model.date.trim() === ''" class="error-message" aria-live="polite">
+      <span *ngIf="submitted && !isDateValid()" class="error-message" aria-live="polite">
         Date is required.
       </span>
     </div>
@@ -60,7 +60,7 @@
           <input type="radio" name="gender" value="2" [(ngModel)]="model.gender" /> Female
         </label>
       </div>
-      <span *ngIf="submitted && model.gender.trim() === ''" class="error-message" aria-live="polite">
+      <span *ngIf="submitted && !isGenderValid()" class="error-message" aria-live="polite">
         Gender is required.
       </span>
     </div>
@@ -128,7 +128,7 @@
             placeholder="Ex. 695581"
             [(ngModel)]="model.pin"
           />
-          <span *ngIf="submitted && !isValidPin(model.pin)" class="error-message" aria-live="polite">
+          <span *ngIf="submitted && !isPinValid()" class="error-message" aria-live="polite">
             PIN must be a 6-digit number.
           </span>
         </div>

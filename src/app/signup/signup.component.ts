@@ -65,6 +65,7 @@ export class SignupComponent implements OnInit {
     if (this.isFormValid()) {
       // Save the form data
       this.formResults.push({ ...this.model });
+      this.filteredResults.data = this.formResults;
       this.showTable = true;
       this.resetForm();
       this.submitted = false;

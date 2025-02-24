@@ -180,11 +180,11 @@
 <!-- Search Input -->
 <mat-form-field appearance="outline">
   <mat-label>Search</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Search records">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search records" matInput>
 </mat-form-field>
 
 <!-- Updated Results Table using Angular Material -->
-<mat-table *ngIf="showTable && filteredResults.length > 0" [dataSource]="filteredResults" class="mat-elevation-z8" aria-label="Form Results">
+<mat-table *ngIf="showTable && filteredResults.data.length > 0" [dataSource]="filteredResults" class="mat-elevation-z8" aria-label="Form Results">
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>

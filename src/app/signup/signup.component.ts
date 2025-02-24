@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 @Component({
@@ -9,7 +10,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
   standalone: true,
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  imports: [CommonModule, FormsModule, MatTableModule, MatFormFieldModule],
+  imports: [CommonModule, FormsModule, MatTableModule, MatFormFieldModule,MatInputModule],
 })
 export class SignupComponent implements OnInit {
   ngOnInit(): void {
@@ -31,7 +32,11 @@ export class SignupComponent implements OnInit {
   };
 
   formResults: any[] = []; // Store submitted results
-  filteredResults: any[] = [];
+
+  showTable = false; // Control table visibility
+  submitted = false; // Track if the form has been submitted
+
+  filteredResults = new MatTableDataSource<any>(this.formResults); // For filtering
   displayedColumns: string[] = [
     'name',
     'email',
@@ -44,14 +49,13 @@ export class SignupComponent implements OnInit {
     'pin',
     'actions',
   ];
-  showTable = false; // Control table visibility
-  submitted = false; // Track if the form has been submitted
 
-  dataSource = new MatTableDataSource(this.formResults);
-
+  // Apply filter method
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+    this.filteredResults.filter = filterValue;
   }
 
   // Handle button click
@@ -72,13 +76,13 @@ export class SignupComponent implements OnInit {
   // Validate form fields
   isFormValid(): boolean {
     // Check if the email already exists in formResults
-    const emailExists = this.formResults.some(
-      (entry) => entry.email === this.model.email
-    );
-    if (emailExists) {
-      alert('This email is already registered.');
-      return false;
-    }
+    // const emailExists = this.formResults.some(
+    //   (entry) => entry.email === this.model.email
+    // );
+    // if (emailExists) {
+    //   alert('This email is already registered.');
+    //   return false;
+    // }
     return (
       this.isNameValid() &&
       this.isEmailValid() &&

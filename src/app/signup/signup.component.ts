@@ -23,9 +23,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
   ],
 })
 
-  export class SignupComponent implements AfterViewInit {
-
-  // Model to store form values
+export class SignupComponent implements AfterViewInit {
   model = {
     name: '',
     email: '',
@@ -39,11 +37,11 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     pin: '',
   };
 
-  formResults: any[] = []; // Store submitted results
-  showTable = false; // Control table visibility
-  submitted = false; // Track if the form has been submitted
+  formResults: any[] = [];
+  showTable = false;
+  submitted = false;
+  editingIndex: number | null = null; // Track the index of the row being edited
 
-  // Table properties
   displayedColumns: string[] = [
     'name',
     'email',
@@ -56,9 +54,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     'pin',
     'actions',
   ];
-  filteredResults = new MatTableDataSource<any>([]); // DataSource for the table
-  pageSize = 10; // Default page size
-  pageSizeOptions = [5, 10, 25, 100]; // Page size options
+  filteredResults = new MatTableDataSource<any>([]);
   dataSource!: MatTableDataSource<`formresults`>;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
@@ -68,15 +64,29 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     this.filteredResults.sort = this.sort;
   }
 
-  // Handle button click
   onSubmit() {
     this.submitted = true;
 
     if (this.isFormValid()) {
-      // Save the form data
       const formData = { ...this.model };
-      this.formResults.push(formData);
-      this.filteredResults.data = [...this.formResults]; // Update the table data
+
+      // Check for duplicate email
+      const emailExists = this.formResults.some((entry, idx) => entry.email === formData.email && idx !== this.editingIndex);
+      if (emailExists) {
+        alert('An entry with this email already exists.');
+        return;
+      }
+
+      if (this.editingIndex !== null) {
+        // Update existing entry
+        this.formResults[this.editingIndex] = formData;
+        this.editingIndex = null;
+      } else {
+        // Add new entry
+        this.formResults.push(formData);
+      }
+
+      this.filteredResults.data = [...this.formResults];
       this.showTable = true;
       this.resetForm();
       this.submitted = false;
@@ -85,7 +95,6 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     }
   }
 
-  // Validate form fields
   isFormValid(): boolean {
     return (
       this.isNameValid() &&
@@ -96,34 +105,28 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     );
   }
 
-  // Name validation
   isNameValid(): boolean {
     return this.model.name.length >= 2;
   }
 
-  // Email validation
   isEmailValid(): boolean {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(this.model.email);
   }
 
-  // Date validation
   isDateValid(): boolean {
     return this.model.date.trim() !== '';
   }
 
-  // Gender validation
   isGenderValid(): boolean {
     return this.model.gender.trim() !== '';
   }
 
-  // PIN validation
   isPinValid(): boolean {
     const pinMatch = this.model.pin.match(/^\d{6}$/);
     return pinMatch !== null;
   }
 
-  // Reset form fields
   resetForm() {
     this.model = {
       name: '',
@@ -137,44 +140,38 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
       post: '',
       pin: '',
     };
+    this.editingIndex = null;
   }
 
-  // Clear form without submitting
   clearForm() {
     this.resetForm();
   }
 
-  // Edit an entry
   editEntry(index: number) {
     const entry = this.formResults[index];
     this.model = { ...entry };
-    this.formResults.splice(index, 1); // Remove the entry from the table
-    this.filteredResults.data = [...this.formResults]; // Update the table data
+    this.editingIndex = index;
   }
 
-  // Delete an entry
   deleteEntry(index: number) {
     const confirmed = confirm('Are you sure you want to delete this entry?');
     if (confirmed) {
-      this.formResults.splice(index, 1); // Remove the entry at the specified index
-      this.filteredResults.data = [...this.formResults]; // Update the table data
+      this.formResults.splice(index, 1);
+      this.filteredResults.data = [...this.formResults];
       if (this.formResults.length === 0) {
-        this.showTable = false; // Hide the table if no entries are left
+        this.showTable = false;
       }
     }
   }
 
-  // Format date as dd/MM/yyyy
   formatDate(dateString: string): string {
-    if (!dateString) return ''; // Handle null or undefined
+    if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-GB');
   }
 
-  // Apply filter to the table
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filteredResults.filter = filterValue.trim().toLowerCase();
   }
-
 }

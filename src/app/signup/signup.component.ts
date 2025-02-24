@@ -7,9 +7,10 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [CommonModule,FormsModule],
 })
 export class SignupComponent {
+  // Model to store form values
   model = {
     name: '',
     email: '',
@@ -23,26 +24,17 @@ export class SignupComponent {
     pin: '',
   };
 
-  formResults: any[] = [];
-  showTable = false;
-  submitted = false;
-  editIndex: number | null = null; // Track the index of the entry being edited
+  formResults: any[] = []; // Store submitted results
+  showTable = false; // Control table visibility
+  submitted = false; // Track if the form has been submitted
 
+  // Handle button click
   onSubmit() {
     this.submitted = true;
 
     if (this.isFormValid()) {
-      const formData = { ...this.model, date: this.formatDate(this.model.date) };
-
-      if (this.editIndex !== null) {
-        // Update existing entry
-        this.formResults[this.editIndex] = formData;
-        this.editIndex = null; // Reset edit index
-      } else {
-        // Add new entry
-        this.formResults.push(formData);
-      }
-
+      // Save the form data
+      this.formResults.push({ ...this.model });
       this.showTable = true;
       this.resetForm();
       this.submitted = false;
@@ -51,6 +43,7 @@ export class SignupComponent {
     }
   }
 
+  // Validate form fields
   isFormValid(): boolean {
     const pinMatch = this.model.pin.match(/^\d{6}$/);
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -63,6 +56,7 @@ export class SignupComponent {
     );
   }
 
+  // Reset form fields
   resetForm() {
     this.model = {
       name: '',
@@ -76,20 +70,28 @@ export class SignupComponent {
       post: '',
       pin: '',
     };
-    this.submitted = false;
-    this.editIndex = null; // Reset edit index
   }
 
+  // Clear form without submitting
   clearForm() {
     this.resetForm();
   }
+  isValidEmail(email: string): boolean {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+  }
+  isValidPin(pin: string): boolean {
+    return /^\d{6}$/.test(pin);
+  }
 
+  // Edit an entry
   editEntry(index: number) {
     const entry = this.formResults[index];
     this.model = { ...entry };
-    this.editIndex = index; // Set the index of the entry being edited
+    this.formResults.splice(index, 1); // Remove the entry from the table
   }
 
+  // Delete an entry
   deleteEntry(index: number) {
     this.formResults.splice(index, 1); // Remove the entry at the specified index
     if (this.formResults.length === 0) {
@@ -97,8 +99,9 @@ export class SignupComponent {
     }
   }
 
+  // Format date as dd/MM/yyyy
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB'); // Format as dd/MM/yyyy
+    return date.toLocaleDateString('en-GB');
   }
 }

@@ -1,159 +1,147 @@
-<form (ngSubmit)="onSubmit()" aria-label="Registration Form">
-  <div class="form-container">
-    <h2 class="form-heading">Form</h2>
+<div class="form-container">
+  <h2 class="form-heading">Form</h2>
 
-    <div class="form-grid">
-      <!-- Name Field -->
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Ex. John"
-          [(ngModel)]="model.name"
-          required
-          minlength="2"
-          #nameInput="ngModel"
-          aria-required="true"
-        />
-        <span *ngIf="submitted && nameInput.invalid" class="error-message" aria-live="polite">
-          Name is required and must be at least 2 characters.
-        </span>
+  <div class="form-grid">
+    <!-- Name Field -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Ex. John"
+        [(ngModel)]="model.name"
+        aria-required="true"
+      />
+      <span *ngIf="submitted && model.name.length < 2" class="error-message" aria-live="polite">
+        Name is required and must be at least 2 characters.
+      </span>
+    </div>
+
+    <!-- Email Field -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Ex. pat@example.com"
+        [(ngModel)]="model.email"
+        aria-required="true"
+      />
+      <span *ngIf="submitted && !isValidEmail(model.email)" class="error-message" aria-live="polite">
+        Please enter a valid email address.
+      </span>
+    </div>
+
+    <!-- Date Field -->
+    <div class="form-group">
+      <label for="date">Choose a date</label>
+      <input
+        type="date"
+        id="date"
+        name="date"
+        [(ngModel)]="model.date"
+        aria-required="true"
+      />
+      <span *ngIf="submitted && model.date.trim() === ''" class="error-message" aria-live="polite">
+        Date is required.
+      </span>
+    </div>
+
+    <!-- Gender Selection -->
+    <div class="form-group" role="group" aria-label="Gender selection">
+      <label>Gender</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="gender" value="1" [(ngModel)]="model.gender" /> Male
+        </label>
+        <label>
+          <input type="radio" name="gender" value="2" [(ngModel)]="model.gender" /> Female
+        </label>
       </div>
+      <span *ngIf="submitted && model.gender.trim() === ''" class="error-message" aria-live="polite">
+        Gender is required.
+      </span>
+    </div>
 
-      <!-- Email Field -->
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Ex. pat@example.com"
-          [(ngModel)]="model.email"
-          required
-          #emailInput="ngModel"
-          aria-required="true"
-        />
-        <span *ngIf="submitted && emailInput.invalid" class="error-message" aria-live="polite">
-          Please enter a valid email address.
-        </span>
-      </div>
-
-      <!-- Date Field -->
-      <div class="form-group">
-        <label for="date">Choose a date</label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          [(ngModel)]="model.date"
-          required
-          #dateInput="ngModel"
-          aria-required="true"
-        />
-        <span *ngIf="submitted && dateInput.invalid" class="error-message" aria-live="polite">
-          Date is required.
-        </span>
-      </div>
-
-      <!-- Gender Selection -->
-      <div class="form-group" role="group" aria-label="Gender selection">
-        <label>Gender</label>
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="gender" value="1" [(ngModel)]="model.gender" required #genderInput="ngModel" /> Male
-          </label>
-          <label>
-            <input type="radio" name="gender" value="2" [(ngModel)]="model.gender" /> Female
-          </label>
-        </div>
-        <span *ngIf="submitted && genderInput.invalid" class="error-message" aria-live="polite">
-          Gender is required.
-        </span>
-      </div>
-
-      <!-- Buy or Rent Selection -->
-      <div class="form-group" role="group" aria-label="Buy or rent selection">
-        <label>Buy or rent</label>
-        <div class="checkbox-group">
-          <label>
-            <input type="checkbox" name="buy" [(ngModel)]="model.buy" /> Buy
-          </label>
-          <label>
-            <input type="checkbox" name="rent" [(ngModel)]="model.rent" /> Rent
-          </label>
-        </div>
-      </div>
-
-      <!-- Address Section -->
-      <div class="form-group address-section">
-        <label>Address</label>
-        <div class="address-grid">
-          <!-- House Name -->
-          <div class="form-group">
-            <label for="houseName">House Name</label>
-            <input
-              type="text"
-              id="houseName"
-              name="houseName"
-              placeholder="Ex. Bethel"
-              [(ngModel)]="model.houseName"
-            />
-          </div>
-
-          <!-- Main Place -->
-          <div class="form-group">
-            <label for="mainPlace">Main Place</label>
-            <input
-              type="text"
-              id="mainPlace"
-              name="mainPlace"
-              placeholder="Ex. Ulloor"
-              [(ngModel)]="model.mainPlace"
-            />
-          </div>
-
-          <!-- Post -->
-          <div class="form-group">
-            <label for="post">Post</label>
-            <input
-              type="text"
-              id="post"
-              name="post"
-              placeholder="Ex. Post Office"
-              [(ngModel)]="model.post"
-            />
-          </div>
-
-          <!-- PIN -->
-          <div class="form-group">
-            <label for="pin">PIN</label>
-            <input
-              type="text"
-              id="pin"
-              name="pin"
-              placeholder="Ex. 695581"
-              [(ngModel)]="model.pin"
-              required
-              pattern="[0-9]{6}"
-              #pinInput="ngModel"
-            />
-            <span *ngIf="submitted && pinInput.invalid" class="error-message" aria-live="polite">
-              PIN must be a 6-digit number.
-            </span>
-          </div>
-        </div>
+    <!-- Buy or Rent Selection -->
+    <div class="form-group" role="group" aria-label="Buy or rent selection">
+      <label>Buy or rent</label>
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" name="buy" [(ngModel)]="model.buy" /> Buy
+        </label>
+        <label>
+          <input type="checkbox" name="rent" [(ngModel)]="model.rent" /> Rent
+        </label>
       </div>
     </div>
 
-    <!-- Form Buttons -->
-    <div class="button-group">
-      <button type="submit">{{ editIndex !== null ? 'Update' : 'Register' }}</button>
-      <button type="button" (click)="clearForm()">Clear</button>
+    <!-- Address Section -->
+    <div class="form-group address-section">
+      <label>Address</label>
+      <div class="address-grid">
+        <!-- House Name -->
+        <div class="form-group">
+          <label for="houseName">House Name</label>
+          <input
+            type="text"
+            id="houseName"
+            name="houseName"
+            placeholder="Ex. Bethel"
+            [(ngModel)]="model.houseName"
+          />
+        </div>
+
+        <!-- Main Place -->
+        <div class="form-group">
+          <label for="mainPlace">Main Place</label>
+          <input
+            type="text"
+            id="mainPlace"
+            name="mainPlace"
+            placeholder="Ex. Ulloor"
+            [(ngModel)]="model.mainPlace"
+          />
+        </div>
+
+        <!-- Post -->
+        <div class="form-group">
+          <label for="post">Post</label>
+          <input
+            type="text"
+            id="post"
+            name="post"
+            placeholder="Ex. Post Office"
+            [(ngModel)]="model.post"
+          />
+        </div>
+
+        <!-- PIN -->
+        <div class="form-group">
+          <label for="pin">PIN</label>
+          <input
+            type="text"
+            id="pin"
+            name="pin"
+            placeholder="Ex. 695581"
+            [(ngModel)]="model.pin"
+          />
+          <span *ngIf="submitted && !isValidPin(model.pin)" class="error-message" aria-live="polite">
+            PIN must be a 6-digit number.
+          </span>
+        </div>
+      </div>
     </div>
   </div>
-</form>
+
+  <!-- Form Buttons -->
+  <div class="button-group">
+    <button type="button" (click)="onSubmit()">Register</button>
+    <button type="button" (click)="clearForm()">Clear</button>
+  </div>
+</div>
 
 <!-- Results Table -->
 <table *ngIf="showTable && formResults.length > 0" aria-label="Form Results">
@@ -175,7 +163,7 @@
     <tr *ngFor="let result of formResults; let i = index">
       <td>{{ result.name }}</td>
       <td>{{ result.email }}</td>
-      <td>{{ result.date }}</td>
+      <td>{{ formatDate(result.date) }}</td>
       <td>{{ result.gender === '1' ? 'Male' : 'Female' }}</td>
       <td>{{ result.buy ? 'Buy' : '' }} {{ result.rent ? 'Rent' : '' }}</td>
       <td>{{ result.houseName }}</td>

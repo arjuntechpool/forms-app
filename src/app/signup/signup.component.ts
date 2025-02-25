@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -22,7 +22,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     MatSortModule,
   ],
 })
-export class SignupComponent implements AfterViewInit {
+export class SignupComponent implements OnInit, AfterViewInit {
   model = {
     name: '',
     email: '',
@@ -54,13 +54,42 @@ export class SignupComponent implements AfterViewInit {
     'actions',
   ];
 
+  formResults: any[] = [];
   dataSource = new MatTableDataSource<any>([]);
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  ngOnInit() {
+    this.showTable = this.dataSource.data.length > 0;
+  }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // This will run after the view is initialized
+    // and the paginator and sort components are available
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
+
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
+  }
+
+  // This method will be called whenever we need to update the dataSource
+  private updateDataSource(data: any[]) {
+    this.dataSource = new MatTableDataSource<any>(data);
+
+    // We need to reassign the paginator and sort after creating a new dataSource
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
+
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
+
+    this.showTable = data.length > 0;
   }
 
   onSubmit() {
@@ -78,18 +107,19 @@ export class SignupComponent implements AfterViewInit {
         return;
       }
 
+      let updatedData = [...this.dataSource.data];
+
       if (this.editingIndex !== null) {
         // Update existing entry
-        this.dataSource.data[this.editingIndex] = formData;
+        updatedData[this.editingIndex] = formData;
         this.editingIndex = null;
       } else {
         // Add new entry
-        this.dataSource.data.push(formData);
+        updatedData.push(formData);
       }
 
-      // Refresh the table
-      this.dataSource.data = [...this.dataSource.data];
-      this.showTable = true;
+      // Use the updateDataSource method to ensure paginator is connected
+      this.updateDataSource(updatedData);
       this.resetForm();
       this.submitted = false;
     } else {
@@ -125,6 +155,7 @@ export class SignupComponent implements AfterViewInit {
   }
 
   isPinValid(): boolean {
+    if (!this.model.pin) return true; // Make PIN optional
     const pinMatch = this.model.pin.match(/^\d{6}$/);
     return pinMatch !== null;
   }
@@ -160,14 +191,20 @@ export class SignupComponent implements AfterViewInit {
   deleteEntry(index: number) {
     const confirmed = confirm('Are you sure you want to delete this entry?');
     if (confirmed) {
-      this.dataSource.data.splice(index, 1);
-      this.dataSource.data = [...this.dataSource.data]; // Refresh the table
-      this.showTable = this.dataSource.data.length > 0; // Hide table if no data is left
+      const updatedData = [...this.dataSource.data];
+      updatedData.splice(index, 1);
+
+      // Use the updateDataSource method to ensure paginator is connected
+      this.updateDataSource(updatedData);
     }
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

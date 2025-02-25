@@ -1,8 +1,14 @@
 <div class="app-container">
+<header class="app-header">
+  <h2 class="form-heading">Registration Form</h2>
+  <!-- <div class="table-header"> -->
+    <h2 class="table-title">Registered Users</h2>
+  <!-- </div> -->
+</header>
   <!-- Left side: Form Section -->
   <div class="form-section">
     <div class="form-container">
-      <h2 class="form-heading">Registration Form</h2>
+       <!-- Fixed Header -->
 
       <div class="form-grid">
         <!-- Name Field -->
@@ -186,12 +192,8 @@
 
   <!-- Right side: Table Section -->
   <div class="table-section">
-    <!-- <div *ngIf="showTable && dataSource.data.length > 0"> -->
     <div>
-      <div class="table-header">
-        <h2 class="table-title">Registered Users</h2>
-      </div>
-      <!-- </div> -->
+
 
       <!-- Search Input -->
       <div class="search-container">
@@ -319,12 +321,5 @@
         showFirstLastButtons
       ></mat-paginator>
     </div>
-
-    <!-- Empty state when no data -->
-    <!-- <div *ngIf="!showTable || dataSource.data.length === 0" class="no-data-state"> -->
-    <!-- <div class="mat-elevation-z8" style="padding: 50px; text-align: center; background-color: white;">
-        <p>No entries yet. Please fill out the form to add new entries.</p>
-      </div>
-    </div> -->
   </div>
 </div>

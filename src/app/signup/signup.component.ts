@@ -165,13 +165,6 @@ export class SignupComponent implements AfterViewInit {
       }
     }
   }
-
-  formatDate(dateString: string): string {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB');
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filteredResults.filter = filterValue.trim().toLowerCase();

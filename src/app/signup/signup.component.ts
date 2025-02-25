@@ -62,6 +62,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.showTable = this.dataSource.data.length > 0;
+    this.showTable = true;
   }
 
   ngAfterViewInit() {

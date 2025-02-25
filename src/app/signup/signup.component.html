@@ -1,14 +1,14 @@
 <div class="app-container">
-<header class="app-header">
-  <h2 class="form-heading">Registration Form</h2>
-  <!-- <div class="table-header"> -->
+  <header class="app-header">
+    <h2 class="form-heading">Registration Form</h2>
+    <!-- <div class="table-header"> -->
     <h2 class="table-title">Registered Users</h2>
-  <!-- </div> -->
-</header>
+    <!-- </div> -->
+  </header>
   <!-- Left side: Form Section -->
   <div class="form-section">
     <div class="form-container">
-       <!-- Fixed Header -->
+      <!-- Fixed Header -->
 
       <div class="form-grid">
         <!-- Name Field -->
@@ -52,71 +52,75 @@
         </div>
 
         <div class="form-date">
-        <!-- Date Field -->
-        <div class="form-group">
-          <label for="date">Choose a date</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            [(ngModel)]="model.date"
-            aria-required="true"
-          />
-          <span
-            *ngIf="submitted && !isDateValid()"
-            class="error-message"
-            aria-live="polite"
-          >
-            Date is required.
-          </span>
-        </div>
-
-        <!-- Gender Selection -->
-        <div class="form-group" role="group" aria-label="Gender selection">
-          <label>Gender</label>
-          <div class="radio-group">
-            <label>
-              <input
-                type="radio"
-                name="gender"
-                value="1"
-                [(ngModel)]="model.gender"
-              />
-              Male
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="gender"
-                value="2"
-                [(ngModel)]="model.gender"
-              />
-              Female
-            </label>
+          <!-- Date Field -->
+          <div class="form-group">
+            <label for="date">Choose a date</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              [(ngModel)]="model.date"
+              aria-required="true"
+            />
+            <span
+              *ngIf="submitted && !isDateValid()"
+              class="error-message"
+              aria-live="polite"
+            >
+              Date is required.
+            </span>
           </div>
-          <span
-            *ngIf="submitted && !isGenderValid()"
-            class="error-message"
-            aria-live="polite"
-          >
-            Gender is required.
-          </span>
-        </div>
 
-        <!-- Buy or Rent Selection -->
-        <div class="form-group" role="group" aria-label="Buy or rent selection">
-          <label>Buy or rent</label>
-          <div class="checkbox-group">
-            <label>
-              <input type="checkbox" name="buy" [(ngModel)]="model.buy" /> Buy
-            </label>
-            <label>
-              <input type="checkbox" name="rent" [(ngModel)]="model.rent" />
-              Rent
-            </label>
+          <!-- Gender Selection -->
+          <div class="form-group" role="group" aria-label="Gender selection">
+            <label>Gender</label>
+            <div class="radio-group">
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="1"
+                  [(ngModel)]="model.gender"
+                />
+                Male
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="2"
+                  [(ngModel)]="model.gender"
+                />
+                Female
+              </label>
+            </div>
+            <span
+              *ngIf="submitted && !isGenderValid()"
+              class="error-message"
+              aria-live="polite"
+            >
+              Gender is required.
+            </span>
+          </div>
+
+          <!-- Buy or Rent Selection -->
+          <div
+            class="form-group"
+            role="group"
+            aria-label="Buy or rent selection"
+          >
+            <label>Buy or rent</label>
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" name="buy" [(ngModel)]="model.buy" /> Buy
+              </label>
+              <label>
+                <input type="checkbox" name="rent" [(ngModel)]="model.rent" />
+                Rent
+              </label>
+            </div>
           </div>
         </div>
-      </div>
 
         <!-- Address Section -->
         <div class="form-group address-section">
@@ -179,22 +183,12 @@
           </div>
         </div>
       </div>
-
-      <!-- Form Buttons -->
-      <div class="button-group">
-        <button type="button" (click)="onSubmit()">
-          {{ isEditing ? "Update" : "Register" }}
-        </button>
-        <button type="button" (click)="clearForm()">Clear</button>
-      </div>
     </div>
   </div>
 
   <!-- Right side: Table Section -->
   <div class="table-section">
     <div>
-
-
       <!-- Search Input -->
       <div class="search-container">
         <mat-form-field appearance="outline">
@@ -299,10 +293,20 @@
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
             <mat-cell *matCellDef="let result; let i = index">
-              <button mat-button color="primary" class="action-button" (click)="editEntry(i)">
+              <button
+                mat-button
+                color="primary"
+                class="action-button"
+                (click)="editEntry(i)"
+              >
                 Edit
               </button>
-              <button mat-button color="warn" class="action-button" (click)="deleteEntry(i)">
+              <button
+                mat-button
+                color="warn"
+                class="action-button"
+                (click)="deleteEntry(i)"
+              >
                 Delete
               </button>
             </mat-cell>
@@ -316,10 +320,20 @@
         </mat-table>
       </div>
       <!-- Paginator -->
-      <mat-paginator
-        [pageSizeOptions]="[2, 5, 10, 20]"
-        showFirstLastButtons
-      ></mat-paginator>
     </div>
   </div>
 </div>
+<!-- Form Buttons -->
+<footer class="app-footer">
+  <div class="button-group">
+    <button type="button" (click)="onSubmit()">
+      {{ isEditing ? "Update" : "Register" }}
+    </button>
+    <button type="button" (click)="clearForm()">Clear</button>
+
+  </div>
+  <mat-paginator
+    [pageSizeOptions]="[2, 5, 10, 20]"
+    showFirstLastButtons
+  ></mat-paginator>
+</footer>

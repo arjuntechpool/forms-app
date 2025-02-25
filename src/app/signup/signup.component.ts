@@ -22,7 +22,6 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     MatSortModule,
   ],
 })
-
 export class SignupComponent implements AfterViewInit {
   model = {
     name: '',
@@ -37,9 +36,8 @@ export class SignupComponent implements AfterViewInit {
     pin: '',
   };
 
-  formResults: any[] = [];
-  showTable = false;
   submitted = false;
+  showTable = false;
   editingIndex: number | null = null;
   isEditing: boolean = false;
 
@@ -55,14 +53,14 @@ export class SignupComponent implements AfterViewInit {
     'pin',
     'actions',
   ];
-  filteredResults = new MatTableDataSource<any>([]);
-  dataSource!: MatTableDataSource<`formresults`>;
+
+  dataSource = new MatTableDataSource<any>([]);
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   ngAfterViewInit() {
-    this.filteredResults.paginator = this.paginator;
-    this.filteredResults.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   onSubmit() {
@@ -72,7 +70,9 @@ export class SignupComponent implements AfterViewInit {
       const formData = { ...this.model };
 
       // Check for duplicate email
-      const emailExists = this.formResults.some((entry, idx) => entry.email === formData.email && idx !== this.editingIndex);
+      const emailExists = this.dataSource.data.some(
+        (entry, idx) => entry.email === formData.email && idx !== this.editingIndex
+      );
       if (emailExists) {
         alert('An entry with this email already exists.');
         return;
@@ -80,14 +80,15 @@ export class SignupComponent implements AfterViewInit {
 
       if (this.editingIndex !== null) {
         // Update existing entry
-        this.formResults[this.editingIndex] = formData;
+        this.dataSource.data[this.editingIndex] = formData;
         this.editingIndex = null;
       } else {
         // Add new entry
-        this.formResults.push(formData);
+        this.dataSource.data.push(formData);
       }
 
-      this.filteredResults.data = [...this.formResults];
+      // Refresh the table
+      this.dataSource.data = [...this.dataSource.data];
       this.showTable = true;
       this.resetForm();
       this.submitted = false;
@@ -142,6 +143,7 @@ export class SignupComponent implements AfterViewInit {
       pin: '',
     };
     this.editingIndex = null;
+    this.isEditing = false;
   }
 
   clearForm() {
@@ -149,7 +151,7 @@ export class SignupComponent implements AfterViewInit {
   }
 
   editEntry(index: number) {
-    const entry = this.formResults[index];
+    const entry = this.dataSource.data[index];
     this.model = { ...entry };
     this.isEditing = true;
     this.editingIndex = index;
@@ -158,15 +160,14 @@ export class SignupComponent implements AfterViewInit {
   deleteEntry(index: number) {
     const confirmed = confirm('Are you sure you want to delete this entry?');
     if (confirmed) {
-      this.formResults.splice(index, 1);
-      this.filteredResults.data = [...this.formResults];
-      if (this.formResults.length === 0) {
-        this.showTable = false;
-      }
+      this.dataSource.data.splice(index, 1);
+      this.dataSource.data = [...this.dataSource.data]; // Refresh the table
+      this.showTable = this.dataSource.data.length > 0; // Hide table if no data is left
     }
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filteredResults.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

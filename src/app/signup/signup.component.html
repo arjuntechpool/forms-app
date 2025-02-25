@@ -13,7 +13,11 @@
         [(ngModel)]="model.name"
         aria-required="true"
       />
-      <span *ngIf="submitted && !isNameValid()" class="error-message" aria-live="polite">
+      <span
+        *ngIf="submitted && !isNameValid()"
+        class="error-message"
+        aria-live="polite"
+      >
         Name is required and must be at least 2 characters.
       </span>
     </div>
@@ -29,7 +33,11 @@
         [(ngModel)]="model.email"
         aria-required="true"
       />
-      <span *ngIf="submitted && !isEmailValid()" class="error-message" aria-live="polite">
+      <span
+        *ngIf="submitted && !isEmailValid()"
+        class="error-message"
+        aria-live="polite"
+      >
         Please enter a valid email address.
       </span>
     </div>
@@ -44,7 +52,11 @@
         [(ngModel)]="model.date"
         aria-required="true"
       />
-      <span *ngIf="submitted && !isDateValid()" class="error-message" aria-live="polite">
+      <span
+        *ngIf="submitted && !isDateValid()"
+        class="error-message"
+        aria-live="polite"
+      >
         Date is required.
       </span>
     </div>
@@ -54,13 +66,29 @@
       <label>Gender</label>
       <div class="radio-group">
         <label>
-          <input type="radio" name="gender" value="1" [(ngModel)]="model.gender" /> Male
+          <input
+            type="radio"
+            name="gender"
+            value="1"
+            [(ngModel)]="model.gender"
+          />
+          Male
         </label>
         <label>
-          <input type="radio" name="gender" value="2" [(ngModel)]="model.gender" /> Female
+          <input
+            type="radio"
+            name="gender"
+            value="2"
+            [(ngModel)]="model.gender"
+          />
+          Female
         </label>
       </div>
-      <span *ngIf="submitted && !isGenderValid()" class="error-message" aria-live="polite">
+      <span
+        *ngIf="submitted && !isGenderValid()"
+        class="error-message"
+        aria-live="polite"
+      >
         Gender is required.
       </span>
     </div>
@@ -128,7 +156,11 @@
             placeholder="Ex. 695581"
             [(ngModel)]="model.pin"
           />
-          <span *ngIf="submitted && !isPinValid()" class="error-message" aria-live="polite">
+          <span
+            *ngIf="submitted && !isPinValid()"
+            class="error-message"
+            aria-live="polite"
+          >
             PIN must be a 6-digit number.
           </span>
         </div>
@@ -138,7 +170,9 @@
 
   <!-- Form Buttons -->
   <div class="button-group">
-    <button type="button" (click)="onSubmit()">{{ isEditing ? 'Update' : 'Register' }}</button>
+    <button type="button" (click)="onSubmit()">
+      {{ isEditing ? "Update" : "Register" }}
+    </button>
     <button type="button" (click)="clearForm()">Clear</button>
   </div>
 </div>
@@ -180,75 +214,92 @@
 <!-- Search Input -->
 <mat-form-field appearance="outline">
   <mat-label>Search</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Search records">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search records" />
 </mat-form-field>
 
-<mat-table *ngIf="showTable && filteredResults.data.length > 0" [dataSource]="filteredResults" class="mat-elevation-z8" aria-label="Form Results">
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.name }} </mat-cell>
-  </ng-container>
+  <mat-table
+    *ngIf="showTable && dataSource.data.length > 0"
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+    aria-label="Form Results"
+  >
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{ result.name }} </mat-cell>
+    </ng-container>
 
-  <!-- Email Column -->
-  <ng-container matColumnDef="email">
-    <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.email }} </mat-cell>
-  </ng-container>
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{ result.email }} </mat-cell>
+    </ng-container>
 
-  <!-- Date Column -->
-  <ng-container matColumnDef="date">
-    <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.date | date: 'dd/MM/yyyy' }} </mat-cell>
-  </ng-container>
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-cell *matCellDef="let result">
+        {{ result.date | date : "dd/MM/yyyy" }}
+      </mat-cell>
+    </ng-container>
 
-  <!-- Gender Column -->
-  <ng-container matColumnDef="gender">
-    <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.gender === '1' ? 'Male' : 'Female' }} </mat-cell>
-  </ng-container>
+    <!-- Gender Column -->
+    <ng-container matColumnDef="gender">
+      <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
+      <mat-cell *matCellDef="let result">
+        {{ result.gender === "1" ? "Male" : "Female" }}
+      </mat-cell>
+    </ng-container>
 
-  <!-- Preference Column -->
-  <ng-container matColumnDef="preference">
-    <mat-header-cell *matHeaderCellDef> Preference </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.buy ? 'Buy' : '' }} {{ result.rent ? 'Rent' : '' }} </mat-cell>
-  </ng-container>
+    <!-- Preference Column -->
+    <ng-container matColumnDef="preference">
+      <mat-header-cell *matHeaderCellDef> Preference </mat-header-cell>
+      <mat-cell *matCellDef="let result">
+        {{ result.buy ? "Buy" : "" }} {{ result.rent ? "Rent" : "" }}
+      </mat-cell>
+    </ng-container>
 
-  <!-- House Name Column -->
-  <ng-container matColumnDef="houseName">
-    <mat-header-cell *matHeaderCellDef> House Name </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.houseName }} </mat-cell>
-  </ng-container>
+    <!-- House Name Column -->
+    <ng-container matColumnDef="houseName">
+      <mat-header-cell *matHeaderCellDef> House Name </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{ result.houseName }} </mat-cell>
+    </ng-container>
 
-  <!-- Main Place Column -->
-  <ng-container matColumnDef="mainPlace">
-    <mat-header-cell *matHeaderCellDef> Main Place </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.mainPlace }} </mat-cell>
-  </ng-container>
+    <!-- Main Place Column -->
+    <ng-container matColumnDef="mainPlace">
+      <mat-header-cell *matHeaderCellDef> Main Place </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{ result.mainPlace }} </mat-cell>
+    </ng-container>
 
-  <!-- Post Column -->
-  <ng-container matColumnDef="post">
-    <mat-header-cell *matHeaderCellDef> Post </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.post }} </mat-cell>
-  </ng-container>
+    <!-- Post Column -->
+    <ng-container matColumnDef="post">
+      <mat-header-cell *matHeaderCellDef> Post </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{ result.post }} </mat-cell>
+    </ng-container>
 
-  <!-- PIN Column -->
-  <ng-container matColumnDef="pin">
-    <mat-header-cell *matHeaderCellDef> PIN </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.pin }} </mat-cell>
-  </ng-container>
+    <!-- PIN Column -->
+    <ng-container matColumnDef="pin">
+      <mat-header-cell *matHeaderCellDef> PIN </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{ result.pin }} </mat-cell>
+    </ng-container>
 
-  <!-- Actions Column -->
-  <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-    <mat-cell *matCellDef="let result; let i = index">
-      <button mat-button color="primary" (click)="editEntry(i)">Edit</button>
-      <button mat-button color="warn" (click)="deleteEntry(i)">Delete</button>
-    </mat-cell>
-  </ng-container>
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let result; let i = index">
+        <button mat-button color="primary" (click)="editEntry(i)">Edit</button>
+        <button mat-button color="warn" (click)="deleteEntry(i)">Delete</button>
+      </mat-cell>
+    </ng-container>
 
-  <!-- Header and Row Declarations -->
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
-<mat-paginator [pageSizeOptions]="[2, 5, 10, 25, 50]"></mat-paginator>
+    <!-- Header and Row Declarations -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <!-- <mat-paginator [pageSizeOptions]="[2, 5, 10, 25, 50]"></mat-paginator> -->
+  <mat-paginator
+  *ngIf="showTable && dataSource.data.length > 0"
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+></mat-paginator>
+

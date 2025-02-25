@@ -227,6 +227,7 @@ body {
 
 .table-container {
   overflow-x: auto;
+  overflow-y: scroll;
   width: 100%;
 }
 
@@ -240,6 +241,14 @@ body {
   display: flex;
   justify-content: end;
   margin-bottom: 10px;
+}
+.search-container input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Search field */
@@ -264,7 +273,7 @@ body {
 .mat-header-cell, .mat-cell {
   padding: 10px;
   font-size: 13px;
-  word-wrap: break-word;
+  /* word-wrap: break-word; */
 }
 
 .mat-header-cell {
@@ -278,7 +287,6 @@ body {
   white-space: normal;
   word-break: break-word;
   text-overflow: ellipsis;
-  max-width: 200px;
 }
 
 /* Paginator styling */

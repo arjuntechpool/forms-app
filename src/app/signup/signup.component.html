@@ -1,274 +1,292 @@
-<div class="form-container">
-  <h2 class="form-heading">Form</h2>
+<div class="app-container">
+  <!-- Left side: Form Section -->
+  <div class="form-section">
+    <div class="form-container">
+      <h2 class="form-heading">Registration Form</h2>
 
-  <div class="form-grid">
-    <!-- Name Field -->
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        placeholder="Ex. John"
-        [(ngModel)]="model.name"
-        aria-required="true"
-      />
-      <span
-        *ngIf="submitted && !isNameValid()"
-        class="error-message"
-        aria-live="polite"
-      >
-        Name is required and must be at least 2 characters.
-      </span>
-    </div>
-
-    <!-- Email Field -->
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Ex. pat@example.com"
-        [(ngModel)]="model.email"
-        aria-required="true"
-      />
-      <span
-        *ngIf="submitted && !isEmailValid()"
-        class="error-message"
-        aria-live="polite"
-      >
-        Please enter a valid email address.
-      </span>
-    </div>
-
-    <!-- Date Field -->
-    <div class="form-group">
-      <label for="date">Choose a date</label>
-      <input
-        type="date"
-        id="date"
-        name="date"
-        [(ngModel)]="model.date"
-        aria-required="true"
-      />
-      <span
-        *ngIf="submitted && !isDateValid()"
-        class="error-message"
-        aria-live="polite"
-      >
-        Date is required.
-      </span>
-    </div>
-
-    <!-- Gender Selection -->
-    <div class="form-group" role="group" aria-label="Gender selection">
-      <label>Gender</label>
-      <div class="radio-group">
-        <label>
-          <input
-            type="radio"
-            name="gender"
-            value="1"
-            [(ngModel)]="model.gender"
-          />
-          Male
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="gender"
-            value="2"
-            [(ngModel)]="model.gender"
-          />
-          Female
-        </label>
-      </div>
-      <span
-        *ngIf="submitted && !isGenderValid()"
-        class="error-message"
-        aria-live="polite"
-      >
-        Gender is required.
-      </span>
-    </div>
-
-    <!-- Buy or Rent Selection -->
-    <div class="form-group" role="group" aria-label="Buy or rent selection">
-      <label>Buy or rent</label>
-      <div class="checkbox-group">
-        <label>
-          <input type="checkbox" name="buy" [(ngModel)]="model.buy" /> Buy
-        </label>
-        <label>
-          <input type="checkbox" name="rent" [(ngModel)]="model.rent" /> Rent
-        </label>
-      </div>
-    </div>
-
-    <!-- Address Section -->
-    <div class="form-group address-section">
-      <label>Address</label>
-      <div class="address-grid">
-        <!-- House Name -->
+      <div class="form-grid">
+        <!-- Name Field -->
         <div class="form-group">
-          <label for="houseName">House Name</label>
+          <label for="name">Full Name</label>
           <input
             type="text"
-            id="houseName"
-            name="houseName"
-            placeholder="Ex. Bethel"
-            [(ngModel)]="model.houseName"
-          />
-        </div>
-
-        <!-- Main Place -->
-        <div class="form-group">
-          <label for="mainPlace">Main Place</label>
-          <input
-            type="text"
-            id="mainPlace"
-            name="mainPlace"
-            placeholder="Ex. Ulloor"
-            [(ngModel)]="model.mainPlace"
-          />
-        </div>
-
-        <!-- Post -->
-        <div class="form-group">
-          <label for="post">Post</label>
-          <input
-            type="text"
-            id="post"
-            name="post"
-            placeholder="Ex. Post Office"
-            [(ngModel)]="model.post"
-          />
-        </div>
-
-        <!-- PIN -->
-        <div class="form-group">
-          <label for="pin">PIN</label>
-          <input
-            type="text"
-            id="pin"
-            name="pin"
-            placeholder="Ex. 695581"
-            [(ngModel)]="model.pin"
+            id="name"
+            name="name"
+            placeholder="Ex. John Smith"
+            [(ngModel)]="model.name"
+            aria-required="true"
           />
           <span
-            *ngIf="submitted && !isPinValid()"
+            *ngIf="submitted && !isNameValid()"
             class="error-message"
             aria-live="polite"
           >
-            PIN must be a 6-digit number.
+            Name is required and must be at least 2 characters.
           </span>
         </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Ex. pat@example.com"
+            [(ngModel)]="model.email"
+            aria-required="true"
+          />
+          <span
+            *ngIf="submitted && !isEmailValid()"
+            class="error-message"
+            aria-live="polite"
+          >
+            Please enter a valid email address.
+          </span>
+        </div>
+
+        <!-- Date Field -->
+        <div class="form-group">
+          <label for="date">Choose a date</label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            [(ngModel)]="model.date"
+            aria-required="true"
+          />
+          <span
+            *ngIf="submitted && !isDateValid()"
+            class="error-message"
+            aria-live="polite"
+          >
+            Date is required.
+          </span>
+        </div>
+
+        <!-- Gender Selection -->
+        <div class="form-group" role="group" aria-label="Gender selection">
+          <label>Gender</label>
+          <div class="radio-group">
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="1"
+                [(ngModel)]="model.gender"
+              />
+              Male
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="2"
+                [(ngModel)]="model.gender"
+              />
+              Female
+            </label>
+          </div>
+          <span
+            *ngIf="submitted && !isGenderValid()"
+            class="error-message"
+            aria-live="polite"
+          >
+            Gender is required.
+          </span>
+        </div>
+
+        <!-- Buy or Rent Selection -->
+        <div class="form-group" role="group" aria-label="Buy or rent selection">
+          <label>Buy or rent</label>
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" name="buy" [(ngModel)]="model.buy" /> Buy
+            </label>
+            <label>
+              <input type="checkbox" name="rent" [(ngModel)]="model.rent" /> Rent
+            </label>
+          </div>
+        </div>
+
+        <!-- Address Section -->
+        <div class="form-group address-section">
+          <label>Address</label>
+          <div class="address-grid">
+            <!-- House Name -->
+            <div class="form-group">
+              <label for="houseName">House Name</label>
+              <input
+                type="text"
+                id="houseName"
+                name="houseName"
+                placeholder="Ex. Bethel"
+                [(ngModel)]="model.houseName"
+              />
+            </div>
+
+            <!-- Main Place -->
+            <div class="form-group">
+              <label for="mainPlace">Main Place</label>
+              <input
+                type="text"
+                id="mainPlace"
+                name="mainPlace"
+                placeholder="Ex. Ulloor"
+                [(ngModel)]="model.mainPlace"
+              />
+            </div>
+
+            <!-- Post -->
+            <div class="form-group">
+              <label for="post">Post</label>
+              <input
+                type="text"
+                id="post"
+                name="post"
+                placeholder="Ex. Post Office"
+                [(ngModel)]="model.post"
+              />
+            </div>
+
+            <!-- PIN -->
+            <div class="form-group">
+              <label for="pin">PIN</label>
+              <input
+                type="text"
+                id="pin"
+                name="pin"
+                placeholder="Ex. 695581"
+                [(ngModel)]="model.pin"
+              />
+              <span
+                *ngIf="submitted && !isPinValid()"
+                class="error-message"
+                aria-live="polite"
+              >
+                PIN must be a 6-digit number.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Buttons -->
+      <div class="button-group">
+        <button type="button" (click)="onSubmit()">
+          {{ isEditing ? "Update" : "Register" }}
+        </button>
+        <button type="button" (click)="clearForm()">Clear</button>
       </div>
     </div>
   </div>
 
-  <!-- Form Buttons -->
-  <div class="button-group">
-    <button type="button" (click)="onSubmit()">
-      {{ isEditing ? "Update" : "Register" }}
-    </button>
-    <button type="button" (click)="clearForm()">Clear</button>
+  <!-- Right side: Table Section -->
+  <div class="table-section">
+    <div *ngIf="showTable && dataSource.data.length > 0">
+      <div class="table-header">
+        <h2 class="table-title">Registered Users</h2>
+      </div>
+
+      <!-- Search Input -->
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search records" />
+      </mat-form-field>
+
+      <!-- Table with Mat-Table -->
+      <mat-table
+        [dataSource]="dataSource"
+        matSort
+        class="mat-elevation-z8"
+        aria-label="Form Results"
+      >
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+          <mat-cell *matCellDef="let result"> {{ result.name }} </mat-cell>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+          <mat-cell *matCellDef="let result"> {{ result.email }} </mat-cell>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+          <mat-cell *matCellDef="let result">
+            {{ result.date | date : "dd/MM/yyyy" }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Gender Column -->
+        <ng-container matColumnDef="gender">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Gender </mat-header-cell>
+          <mat-cell *matCellDef="let result">
+            {{ result.gender === "1" ? "Male" : "Female" }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Preference Column -->
+        <ng-container matColumnDef="preference">
+          <mat-header-cell *matHeaderCellDef> Preference </mat-header-cell>
+          <mat-cell *matCellDef="let result">
+            {{ result.buy ? "Buy" : "" }} {{ result.rent ? "Rent" : "" }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- House Name Column -->
+        <ng-container matColumnDef="houseName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> House Name </mat-header-cell>
+          <mat-cell *matCellDef="let result"> {{ result.houseName }} </mat-cell>
+        </ng-container>
+
+        <!-- Main Place Column -->
+        <ng-container matColumnDef="mainPlace">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Main Place </mat-header-cell>
+          <mat-cell *matCellDef="let result"> {{ result.mainPlace }} </mat-cell>
+        </ng-container>
+
+        <!-- Post Column -->
+        <ng-container matColumnDef="post">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Post </mat-header-cell>
+          <mat-cell *matCellDef="let result"> {{ result.post }} </mat-cell>
+        </ng-container>
+
+        <!-- PIN Column -->
+        <ng-container matColumnDef="pin">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> PIN </mat-header-cell>
+          <mat-cell *matCellDef="let result"> {{ result.pin }} </mat-cell>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let result; let i = index">
+            <button mat-button color="primary" (click)="editEntry(i)">Edit</button>
+            <button mat-button color="warn" (click)="deleteEntry(i)">Delete</button>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Header and Row Declarations -->
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <!-- Paginator -->
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+
+    <!-- Empty state when no data -->
+    <div *ngIf="!showTable || dataSource.data.length === 0" class="no-data-state">
+      <div class="mat-elevation-z8" style="padding: 50px; text-align: center; background-color: white;">
+        <p>No entries yet. Please fill out the form to add new entries.</p>
+      </div>
+    </div>
   </div>
 </div>
-
-<!-- Search Input -->
-<mat-form-field *ngIf="showTable && dataSource.data.length > 0" appearance="outline">
-  <mat-label>Search</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Search records" />
-</mat-form-field>
-
-<!-- Table with Mat-Table -->
-<mat-table
-  *ngIf="showTable && dataSource.data.length > 0"
-  [dataSource]="dataSource"
-  matSort
-  class="mat-elevation-z8"
-  aria-label="Form Results"
->
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.name }} </mat-cell>
-  </ng-container>
-
-  <!-- Email Column -->
-  <ng-container matColumnDef="email">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.email }} </mat-cell>
-  </ng-container>
-
-  <!-- Date Column -->
-  <ng-container matColumnDef="date">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
-    <mat-cell *matCellDef="let result">
-      {{ result.date | date : "dd/MM/yyyy" }}
-    </mat-cell>
-  </ng-container>
-
-  <!-- Gender Column -->
-  <ng-container matColumnDef="gender">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Gender </mat-header-cell>
-    <mat-cell *matCellDef="let result">
-      {{ result.gender === "1" ? "Male" : "Female" }}
-    </mat-cell>
-  </ng-container>
-
-  <!-- Preference Column -->
-  <ng-container matColumnDef="preference">
-    <mat-header-cell *matHeaderCellDef> Preference </mat-header-cell>
-    <mat-cell *matCellDef="let result">
-      {{ result.buy ? "Buy" : "" }} {{ result.rent ? "Rent" : "" }}
-    </mat-cell>
-  </ng-container>
-
-  <!-- House Name Column -->
-  <ng-container matColumnDef="houseName">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> House Name </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.houseName }} </mat-cell>
-  </ng-container>
-
-  <!-- Main Place Column -->
-  <ng-container matColumnDef="mainPlace">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Main Place </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.mainPlace }} </mat-cell>
-  </ng-container>
-
-  <!-- Post Column -->
-  <ng-container matColumnDef="post">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Post </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.post }} </mat-cell>
-  </ng-container>
-
-  <!-- PIN Column -->
-  <ng-container matColumnDef="pin">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> PIN </mat-header-cell>
-    <mat-cell *matCellDef="let result"> {{ result.pin }} </mat-cell>
-  </ng-container>
-
-  <!-- Actions Column -->
-  <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-    <mat-cell *matCellDef="let result; let i = index">
-      <button mat-button color="primary" (click)="editEntry(i)">Edit</button>
-      <button mat-button color="warn" (click)="deleteEntry(i)">Delete</button>
-    </mat-cell>
-  </ng-container>
-
-  <!-- Header and Row Declarations -->
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-</mat-table>
-
-<!-- Paginator -->
-<mat-paginator
-  *ngIf="showTable && dataSource.data.length > 0"
-  [pageSize]="5"
-  [pageSizeOptions]="[2, 5, 10, 20]"
-  showFirstLastButtons
-></mat-paginator>

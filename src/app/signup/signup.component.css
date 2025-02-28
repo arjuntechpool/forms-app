@@ -137,6 +137,11 @@ body {
   align-items: flex-start;
   gap: 55px;
 }
+.form-select {
+  display: flex;
+  align-items: flex-start;
+  gap: 75px;
+}
 
 /* Error message styling */
 .error-message {
@@ -303,6 +308,7 @@ body {
   top: 0;
   z-index: 1;
 }
+
 
 /* For responsive design */
 @media (max-width: 992px) {

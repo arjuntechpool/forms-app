@@ -36,7 +36,20 @@ export class SignupComponent implements OnInit, AfterViewInit {
     mainPlace: '',
     post: '',
     pin: '',
+    state: '',
+    district: '',
   };
+
+  selectedDistricts: string[] = [];
+  states: string[] = ['Kerala', 'Tamil Nadu'];
+  districts: { [key: string]: string[] } = {
+    Kerala: ['Kochi', 'Trivandrum', 'Calicut'],
+    'Tamil Nadu': ['Chennai', 'Dindigul', 'Thoothukudi'],
+  };
+  onStateChange(state: string) {
+    this.selectedDistricts = this.districts[state] || [];
+    this.model.district = '';
+  }
 
   submitted = false;
   showTable = false;
@@ -103,7 +116,8 @@ export class SignupComponent implements OnInit, AfterViewInit {
 
       // Check for duplicate email
       const emailExists = this.dataSource.data.some(
-        (entry, idx) => entry.email === formData.email && idx !== this.editingIndex
+        (entry, idx) =>
+          entry.email === formData.email && idx !== this.editingIndex
       );
       if (emailExists) {
         alert('An entry with this email already exists.');
@@ -175,6 +189,8 @@ export class SignupComponent implements OnInit, AfterViewInit {
       mainPlace: '',
       post: '',
       pin: '',
+      state: '',
+      district: '',
     };
     this.editingIndex = null;
     this.isEditing = false;

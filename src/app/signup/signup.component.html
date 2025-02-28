@@ -181,6 +181,34 @@
               </span>
             </div>
           </div>
+
+        <div class="form-select">
+            <!-- State Selection -->
+            <div class="form-group" role="group" aria-label="State selection">
+              <label for="state">Select State</label>
+              <select id="state" name="state" [(ngModel)]="model.state" aria-required="true">
+                <option value="" disabled selected>Select your state</option>
+                <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+              </select>
+              <!-- <span *ngIf="submitted && !isDateValid()" class="error-message" aria-live="polite">
+                State is required.
+              </span> -->
+            </div>
+
+            <!-- District Selection -->
+            <div class="form-group" role="group" aria-label="District selection">
+              <label for="district">Select District</label>
+              <select id="district" name="district" [(ngModel)]="model.district" aria-required="true">
+                <option value="" disabled selected>Select your district</option>
+                <option *ngFor="let district of selectedDistricts" [value]="district">{{ district }}</option>
+              </select>
+              <!-- <span *ngIf="submitted && !isDistrictValid()" class="error-message" aria-live="polite">
+                District is required.
+              </span> -->
+            </div>
+        </div>
+
+
         </div>
       </div>
     </div>
@@ -191,12 +219,13 @@
     <div>
       <!-- Search Input -->
       <div class="search-container">
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" >
           <mat-label>Search</mat-label>
           <input
             matInput
             (keyup)="applyFilter($event)"
             placeholder="Search records"
+            class="search-field"
           />
         </mat-form-field>
       </div>

@@ -2,7 +2,7 @@
   <header class="app-header">
     <h2 class="form-heading">Registration Form</h2>
     <!-- <div class="table-header"> -->
-    <h2 class="table-title">Registered Users</h2>
+    <h2 class="form-heading">Registered Users</h2>
     <!-- </div> -->
   </header>
   <!-- Left side: Form Section -->
@@ -222,7 +222,9 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               Email
             </mat-header-cell>
-            <mat-cell *matCellDef="let result"> {{ result.email }} </mat-cell>
+            <mat-cell *matCellDef="let result" class="mat-column-email">
+              {{ result.email }}
+            </mat-cell>
           </ng-container>
 
           <!-- Date Column -->
@@ -294,22 +296,22 @@
             <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
             <mat-cell *matCellDef="let result; let i = index">
               <button
-              mat-icon-button
-              color="primary"
-              class="action-button"
-              (click)="editEntry(i)"
-              aria-label="Edit"
+                mat-icon-button
+                color="primary"
+                class="action-button"
+                (click)="editEntry(i)"
+                aria-label="Edit"
               >
-              <mat-icon>edit</mat-icon>
+                <mat-icon>edit</mat-icon>
               </button>
               <button
-              mat-icon-button
-              color="warn"
-              class="action-button"
-              (click)="deleteEntry(i)"
-              aria-label="Delete"
+                mat-icon-button
+                color="warn"
+                class="action-button"
+                (click)="deleteEntry(i)"
+                aria-label="Delete"
               >
-              <mat-icon>delete</mat-icon>
+                <mat-icon>delete</mat-icon>
               </button>
             </mat-cell>
           </ng-container>
@@ -332,7 +334,6 @@
       {{ isEditing ? "Update" : "Register" }}
     </button>
     <button type="button" (click)="clearForm()">Clear</button>
-
   </div>
   <mat-paginator
     [pageSizeOptions]="[2, 5, 10, 20]"

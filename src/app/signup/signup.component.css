@@ -26,7 +26,6 @@ body {
   justify-content: center;
   gap: 40%;
   background-color: #ffffff;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .form-section {
@@ -44,11 +43,11 @@ body {
   padding: 20px;
   overflow-y: auto;
   overflow-x: auto;
-  /* overflow-wrap: break-word; */
   max-height: calc(100vh - 60px); /* Adjust based on header height */
   background-color: #f9fafc;
   margin-top: 60px; /* Adjust based on header height */
 }
+
 /* Form container */
 .form-container {
   max-width: 100%;
@@ -211,126 +210,108 @@ body {
   transform: translateY(-1px);
 }
 
-/* Table section header */
-.table-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.table-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #1976d2;
-}
-
+/* Fix for table horizontal scrolling */
 .table-container {
   overflow-x: auto;
-  overflow-y: scroll;
   width: 100%;
+  margin-bottom: 15px;
+  border-radius: 8px;
 }
 
+/* Ensure the table takes proper width within the container */
 .mat-table {
-  min-width: 100%;
-  table-layout: auto;
-  word-break: break-word;
+  min-width: 800px;
+  width: 100%;
+  table-layout: fixed; /* Change from auto to fixed */
 }
-
 .search-container {
   display: flex;
   justify-content: end;
   margin-bottom: 10px;
 }
-.search-container input {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
 
-/* Search field */
-.mat-form-field {
-  width: 100%;
-  margin-bottom: 15px;
-  white-space: normal;
-  word-break: break-word;
-  background-color: white;
-  border-radius: 4px;
-  padding: 5px;
-}
-
-/* Angular Material table styling */
-.mat-elevation-z8 {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: auto !important;
-  background-color: white;
-}
-
+/* Set specific widths for table columns to maintain alignment */
 .mat-header-cell, .mat-cell {
   padding: 10px;
   font-size: 13px;
-  /* word-wrap: break-word; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Prevent wrapping */
 }
 
+/* Email column specific width */
+.mat-column-email {
+  min-width: 180px; /* Increased from 100px */
+  max-width: 200px;
+}
+
+/* Make other columns have appropriate widths */
+.mat-column-name, .mat-column-gender, .mat-column-preference,
+.mat-column-houseName, .mat-column-mainPlace, .mat-column-post {
+  min-width: 100px;
+}
+
+.mat-column-pin {
+  min-width: 80px;
+}
+
+.mat-column-date {
+  min-width: 100px;
+}
+
+/* Improve the actions column */
+.mat-column-actions {
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Improve button visibility */
+.action-button {
+  margin: 0 4px;
+  padding: 6px 10px; /* Increased padding */
+  font-size: 14px; /* Increased font size */
+  border-radius: 4px;
+  background-color: #253091;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+}
+
+/* Style for edit/delete buttons */
+.action-button.edit {
+  background-color: #2196F3;
+
+}
+
+.action-button.delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.action-button:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+/* Improve the table header appearance */
 .mat-header-cell {
   background-color: #e3f2fd;
   font-weight: bold;
   color: #0d47a1;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
-.mat-cell {
-  border-bottom: 1px solid #f0f0f0;
-  white-space: normal;
-  word-break: break-word;
-  text-overflow: ellipsis;
-}
-
-/* Paginator styling */
-.mat-paginator {
-  background-color: #fafafa;
-  border-top: 1px solid #e0e0e0;
-  width: 100%;
-}
-.app-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  z-index: 1000;
-  display: flex;
-  flex-direction: row;
-  gap: 30%;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
-  padding: 10px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-/* Buttons styling */
-.app-footer .button-group {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 4%;
-  margin-bottom: 10px;
-}
-
-/* Responsive adjustments */
+/* For responsive design */
 @media (max-width: 992px) {
-  .app-container {
-    flex-direction: column;
+  .table-section {
+    max-height: none; /* Remove the height restriction */
   }
 
-  .form-section, .table-section {
-    max-height: 50vh;
-    border-right: none;
-    border-bottom: 1px solid #e0e0e0;
-  }
-
-  .mat-table {
-    min-width: 600px;
+  .table-container {
+    overflow-x: auto;
+    max-width: 100%;
   }
 }

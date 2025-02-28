@@ -137,10 +137,24 @@ body {
   align-items: flex-start;
   gap: 55px;
 }
-.form-select {
+.select-section {
   display: flex;
   align-items: flex-start;
   gap: 75px;
+}
+.select-section .form-group select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.select-section .form-group select:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 8px rgba(25, 118, 210, 0.3);
 }
 
 /* Error message styling */
@@ -252,7 +266,8 @@ body {
 
 /* Make other columns have appropriate widths */
 .mat-column-name, .mat-column-gender, .mat-column-preference,
-.mat-column-houseName, .mat-column-mainPlace, .mat-column-post {
+.mat-column-houseName, .mat-column-mainPlace, .mat-column-post,
+.mat-column-district, .mat-column-state{
   min-width: 100px;
 }
 

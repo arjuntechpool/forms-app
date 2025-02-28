@@ -40,15 +40,16 @@ export class SignupComponent implements OnInit, AfterViewInit {
     district: '',
   };
 
-  selectedDistricts: string[] = [];
+
   states: string[] = ['Kerala', 'Tamil Nadu'];
-  districts: { [key: string]: string[] } = {
+  districts: Record<string, string[]> = {
     Kerala: ['Kochi', 'Trivandrum', 'Calicut'],
     'Tamil Nadu': ['Chennai', 'Dindigul', 'Thoothukudi'],
   };
-  onStateChange(state: string) {
-    this.selectedDistricts = this.districts[state] || [];
-    this.model.district = '';
+  onStateChange(event: Event) {
+    const selectedState = (event.target as HTMLSelectElement).value;
+    this.model.state = selectedState;
+    this.model.district = ''; // Reset district when state changes
   }
 
   submitted = false;
@@ -66,6 +67,8 @@ export class SignupComponent implements OnInit, AfterViewInit {
     'mainPlace',
     'post',
     'pin',
+    'state',
+    'district',
     'actions',
   ];
 

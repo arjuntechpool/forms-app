@@ -182,32 +182,57 @@
             </div>
           </div>
 
-        <div class="form-select">
-            <!-- State Selection -->
-            <div class="form-group" role="group" aria-label="State selection">
-              <label for="state">Select State</label>
-              <select id="state" name="state" [(ngModel)]="model.state" aria-required="true">
-                <option value="" disabled selected>Select your state</option>
-                <option *ngFor="let state of states" [value]="state">{{ state }}</option>
-              </select>
-              <!-- <span *ngIf="submitted && !isDateValid()" class="error-message" aria-live="polite">
-                State is required.
-              </span> -->
-            </div>
+          <div class="select-section">
+          <!-- State Selection -->
+          <div class="form-group" role="group" aria-label="State selection">
+            <label for="state">Select State</label>
+            <select
+              id="state"
+              name="state"
+              [(ngModel)]="model.state"
+              (change)="onStateChange($event)"
+              aria-required="true"
+            >
+              <option value="" disabled>Select your state</option>
+              <option *ngFor="let state of states" [value]="state">
+                {{ state }}
+              </option>
+            </select>
+            <span
+              *ngIf="submitted && !model.state"
+              class="error-message"
+              aria-live="polite"
+            >
+              State is required.
+            </span>
+          </div>
 
-            <!-- District Selection -->
-            <div class="form-group" role="group" aria-label="District selection">
-              <label for="district">Select District</label>
-              <select id="district" name="district" [(ngModel)]="model.district" aria-required="true">
-                <option value="" disabled selected>Select your district</option>
-                <option *ngFor="let district of selectedDistricts" [value]="district">{{ district }}</option>
-              </select>
-              <!-- <span *ngIf="submitted && !isDistrictValid()" class="error-message" aria-live="polite">
-                District is required.
-              </span> -->
-            </div>
+          <!-- District Selection -->
+          <div class="form-group" role="group" aria-label="District selection">
+            <label for="district">Select District</label>
+            <select
+              id="district"
+              name="district"
+              [(ngModel)]="model.district"
+              aria-required="true"
+            >
+              <option value="" disabled>Select your district</option>
+              <option
+                *ngFor="let district of districts[model.state] || []"
+                [value]="district"
+              >
+                {{ district }}
+              </option>
+            </select>
+            <span
+              *ngIf="submitted && !model.district"
+              class="error-message"
+              aria-live="polite"
+            >
+              District is required.
+            </span>
+          </div>
         </div>
-
 
         </div>
       </div>
@@ -219,7 +244,7 @@
     <div>
       <!-- Search Input -->
       <div class="search-container">
-        <mat-form-field appearance="outline" >
+        <mat-form-field appearance="outline">
           <mat-label>Search</mat-label>
           <input
             matInput
@@ -273,6 +298,24 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let result">
               {{ result.gender === "1" ? "Male" : "Female" }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="state">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              State
+            </mat-header-cell>
+            <mat-cell *matCellDef="let result">
+              {{ result.state }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="district">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              District
+            </mat-header-cell>
+            <mat-cell *matCellDef="let result">
+              {{ result.district }}
             </mat-cell>
           </ng-container>
 

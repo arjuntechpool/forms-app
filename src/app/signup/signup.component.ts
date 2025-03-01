@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
+import { ViewDetailsModalComponent } from '../view-details-modal/view-details-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-signup',
@@ -53,6 +55,8 @@ export class SignupComponent implements OnInit, AfterViewInit {
     this.model.district = ''; // Reset district when state changes
   }
 
+
+
   submitted = false;
   showTable = false;
   editingIndex: number | null = null;
@@ -62,7 +66,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
     'name',
     'email',
     'date',
-    'gender',
+    // 'gender',
     'preference',
     // 'houseName',
     // 'mainPlace',
@@ -94,6 +98,13 @@ export class SignupComponent implements OnInit, AfterViewInit {
     if (this.sort) {
       this.dataSource.sort = this.sort;
     }
+  }
+
+  openViewModal(row: any) {
+    this.dialog.open(ViewDetailsModalComponent, {
+      width: '500px', // Set the width of the modal
+      data: row, // Pass the row data to the modal
+    });
   }
 
   // This method will be called whenever we need to update the dataSource

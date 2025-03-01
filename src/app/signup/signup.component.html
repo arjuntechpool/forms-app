@@ -186,58 +186,61 @@
           </div>
 
           <div class="select-section">
-          <!-- State Selection -->
-          <div class="form-group" role="group" aria-label="State selection">
-            <label for="state">Select State</label>
-            <select
-              id="state"
-              name="state"
-              [(ngModel)]="model.state"
-              (change)="onStateChange($event)"
-              aria-required="true"
-              required="required"
-            >
-              <option value="" disabled>Select your state</option>
-              <option *ngFor="let state of states" [value]="state">
-                {{ state }}
-              </option>
-            </select>
-            <span
-              *ngIf="submitted && !model.state"
-              class="error-message"
-              aria-live="polite"
-            >
-              State is required.
-            </span>
-          </div>
-
-          <!-- District Selection -->
-          <div class="form-group" role="group" aria-label="District selection">
-            <label for="district">Select District</label>
-            <select
-              id="district"
-              name="district"
-              [(ngModel)]="model.district"
-              aria-required="true"
-            >
-              <option value="" disabled>Select your district</option>
-              <option
-                *ngFor="let district of districts[model.state] || []"
-                [value]="district"
+            <!-- State Selection -->
+            <div class="form-group" role="group" aria-label="State selection">
+              <label for="state">Select State</label>
+              <select
+                id="state"
+                name="state"
+                [(ngModel)]="model.state"
+                (change)="onStateChange($event)"
+                aria-required="true"
+                required="required"
               >
-                {{ district }}
-              </option>
-            </select>
-            <span
-              *ngIf="submitted && !model.district"
-              class="error-message"
-              aria-live="polite"
-            >
-              District is required.
-            </span>
-          </div>
-        </div>
+                <option value="" disabled>Select your state</option>
+                <option *ngFor="let state of states" [value]="state">
+                  {{ state }}
+                </option>
+              </select>
+              <span
+                *ngIf="submitted && !model.state"
+                class="error-message"
+                aria-live="polite"
+              >
+                State is required.
+              </span>
+            </div>
 
+            <!-- District Selection -->
+            <div
+              class="form-group"
+              role="group"
+              aria-label="District selection"
+            >
+              <label for="district">Select District</label>
+              <select
+                id="district"
+                name="district"
+                [(ngModel)]="model.district"
+                aria-required="true"
+              >
+                <option value="" disabled>Select your district</option>
+                <option
+                  *ngFor="let district of districts[model.state] || []"
+                  [value]="district"
+                >
+                  {{ district }}
+                </option>
+              </select>
+              <span
+                *ngIf="submitted && !model.district"
+                class="error-message"
+                aria-live="polite"
+              >
+                District is required.
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -388,6 +391,13 @@
                 aria-label="Delete"
               >
                 <mat-icon>delete</mat-icon>
+              </button>
+              <button
+                mat-button
+                (click)="openViewModal(result)"
+                class="view-button"
+              >
+                View
               </button>
             </mat-cell>
           </ng-container>

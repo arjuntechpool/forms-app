@@ -1,1 +1,19 @@
-<p>view-details-modal works!</p>
+<h2 mat-dialog-title>View Details</h2>
+<mat-dialog-content>
+  <div>
+    <p><strong>Name:</strong> {{ data.name }}</p>
+    <p><strong>Email:</strong> {{ data.email }}</p>
+    <p><strong>Date:</strong> {{ data.date }}</p>
+    <p><strong>Gender:</strong> {{ data.gender }}</p>
+    <p><strong>Preferences:</strong> {{ data.buy ? 'Buy' : '' }} {{ data.rent ? 'Rent' : '' }}</p>
+    <p><strong>House Name:</strong> {{ data.houseName }}</p>
+    <p><strong>Main Place:</strong> {{ data.mainPlace }}</p>
+    <p><strong>Post:</strong> {{ data.post }}</p>
+    <p><strong>PIN:</strong> {{ data.pin }}</p>
+    <p><strong>State:</strong> {{ data.state }}</p>
+    <p><strong>District:</strong> {{ data.district }}</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

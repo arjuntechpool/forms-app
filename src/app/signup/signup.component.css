@@ -320,8 +320,30 @@ body {
 
 /* Improve the actions column */
 .mat-column-actions {
-  min-width: 100px;
+  min-width: 180px; /* Increase the width to fit all buttons */
   text-align: center;
+}
+.view-button {
+  margin: 0 4px;
+  padding: 6px 12px; /* Add padding for better visibility */
+  font-size: 14px; /* Increase font size */
+  border-radius: 4px;
+  background-color: #4CAF50; /* Green background color */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+/* Hover effect for the View button */
+.view-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: translateY(-1px); /* Slight lift effect */
+}
+
+/* Ensure buttons in the actions column are aligned properly */
+.mat-cell .action-button,
+.mat-cell .view-button {
+  vertical-align: middle; /* Align buttons vertically */
 }
 
 /* Improve button visibility */
@@ -373,5 +395,16 @@ body {
   .table-container {
     /* overflow-x: auto; */
     max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .mat-column-actions {
+    min-width: 150px; /* Reduce width for smaller screens */
+  }
+
+  .view-button {
+    padding: 4px 8px; /* Reduce padding for smaller screens */
+    font-size: 12px; /* Reduce font size for smaller screens */
   }
 }

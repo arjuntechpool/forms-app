@@ -1,0 +1,22 @@
+/* Style for the remarks textarea */
+.remarks-field {
+  width: 100%; /* Full width */
+  margin-top: 20px; /* Add some space above the textarea */
+}
+
+/* Style for the buttons in the modal */
+.actions button {
+  margin-left: 8px; /* Add space between buttons */
+}
+
+/* Style for the Approve button */
+.approve button[color="primary"] {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+}
+
+/* Style for the Reject button */
+.reject button[color="warn"] {
+  background-color: #f44336; /* Red background */
+  color: white; /* White text */
+}

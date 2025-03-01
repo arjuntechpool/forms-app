@@ -3,9 +3,12 @@
   <div>
     <p><strong>Name:</strong> {{ data.name }}</p>
     <p><strong>Email:</strong> {{ data.email }}</p>
-    <p><strong>Date:</strong> {{ data.date | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Date:</strong> {{ data.date | date : "dd/MM/yyyy" }}</p>
     <p><strong>Gender:</strong> {{ data.gender }}</p>
-    <p><strong>Preferences:</strong> {{ data.buy ? 'Buy' : '' }} {{ data.rent ? 'Rent' : '' }}</p>
+    <p>
+      <strong>Preferences:</strong> {{ data.buy ? "Buy" : "" }}
+      {{ data.rent ? "Rent" : "" }}
+    </p>
     <p><strong>House Name:</strong> {{ data.houseName }}</p>
     <p><strong>Main Place:</strong> {{ data.mainPlace }}</p>
     <p><strong>Post:</strong> {{ data.post }}</p>
@@ -13,7 +16,26 @@
     <p><strong>State:</strong> {{ data.state }}</p>
     <p><strong>District:</strong> {{ data.district }}</p>
   </div>
+
+  <!-- Textarea for Remarks -->
+  <mat-form-field appearance="outline" class="remarks-field">
+    <mat-label>Remarks</mat-label>
+    <textarea
+      matInput
+      [(ngModel)]="remarks"
+      placeholder="Enter remarks"
+      rows="4"
+    ></textarea>
+  </mat-form-field>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+
+<mat-dialog-actions align="end" class="actions">
+  <!-- Close Button -->
+  <button mat-button (click)="onClose()">Close</button>
+
+  <!-- Reject Button -->
+  <button  class="reject" (click)="onReject()">Reject</button>
+
+  <!-- Approve Button -->
+  <button  class="approve" (click)="onApprove()">Approve</button>
 </mat-dialog-actions>

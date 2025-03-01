@@ -286,6 +286,7 @@ body {
 .search-container {
   display: flex;
   justify-content: flex-end; /* Align the search box to the right */
+  gap: 10px; /* Add some space between elements */
   margin-bottom: 10px; /* Add some space below the search box */
 }
 

@@ -251,6 +251,17 @@
     <div>
       <!-- Search Input -->
       <div class="search-container">
+        <div *ngIf="lastAction !== null" class="remarks-display">
+          <!-- <h3>Last Action:</h3> -->
+          <p>
+            <strong>Action:</strong>
+            {{ lastAction === 1 ? "Approved" : "Rejected" }}
+          </p>
+          <p>
+            <strong>Remarks:</strong>
+            {{ lastRemarks }}
+          </p>
+        </div>
         <mat-form-field appearance="outline">
           <mat-label>Search</mat-label>
           <input

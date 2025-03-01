@@ -61,6 +61,8 @@ export class SignupComponent implements OnInit, AfterViewInit {
   showTable = false;
   editingIndex: number | null = null;
   isEditing: boolean = false;
+  lastAction: number | null = null; // 1 for Approve, 2 for Reject
+  lastRemarks: string | null = null;
 
   displayedColumns: string[] = [
     'name',
@@ -101,11 +103,31 @@ export class SignupComponent implements OnInit, AfterViewInit {
   }
 
   openViewModal(row: any) {
-    this.dialog.open(ViewDetailsModalComponent, {
-      width: '500px', // Set the width of the modal
+    const dialogRef = this.dialog.open(ViewDetailsModalComponent, {
+      width: '10000px', // Set the width of the modal
       data: row, // Pass the row data to the modal
     });
+
+    // Handle the result returned by the modal
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.lastAction = result.action; // Store the action (1 for Approve, 2 for Reject)
+        this.lastRemarks = result.remarks; // Store the remarks
+
+        console.log('Action:', this.lastAction); // Log the action
+        console.log('Remarks:', this.lastRemarks); // Log the remarks
+
+        if (this.lastAction === 1) {
+          alert('Approved with remarks: ' + this.lastRemarks);
+        } else if (this.lastAction === 2) {
+          alert('Rejected with remarks: ' + this.lastRemarks);
+        }
+      } else {
+        console.log('Modal closed without any action'); // Log if the modal was closed without any action
+      }
+    });
   }
+
 
   // This method will be called whenever we need to update the dataSource
   private updateDataSource(data: any[]) {
@@ -164,12 +186,12 @@ export class SignupComponent implements OnInit, AfterViewInit {
   isFormValid(): boolean {
     return (
       this.isNameValid() &&
-      this.isEmailValid() &&
-      this.isDateValid() &&
-      this.isGenderValid() &&
-      this.isPinValid() &&
-      this.isStateValid() &&
-      this.isDistrictValid()
+      this.isEmailValid()
+      // this.isDateValid() &&
+      // this.isGenderValid() &&
+      // this.isPinValid() &&
+      // this.isStateValid() &&
+      // this.isDistrictValid()
     );
   }
 

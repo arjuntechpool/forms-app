@@ -285,10 +285,34 @@ body {
 }
 .search-container {
   display: flex;
-  justify-content: end;
-  margin-bottom: 10px;
+  justify-content: flex-end; /* Align the search box to the right */
+  margin-bottom: 10px; /* Add some space below the search box */
 }
 
+/* Style for the mat-form-field */
+.search-container mat-form-field {
+  width: 200px; /* Adjust the width as needed */
+  font-size: 14px; /* Adjust font size */
+}
+
+/* Style for the input field */
+.search-container .mat-input-element {
+  height: 36px; /* Adjust the height as needed */
+  padding: 6px 12px; /* Add padding for better text visibility */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Style for the mat-form-field outline */
+.search-container .mat-form-field-outline {
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Focus effect for the mat-form-field */
+.search-container .mat-form-field.mat-focused .mat-form-field-outline {
+  border-color: #1976d2; /* Change border color on focus */
+  box-shadow: 0 0 8px rgba(25, 118, 210, 0.3); /* Add a subtle shadow */
+}
 /* Set specific widths for table columns to maintain alignment */
 .mat-header-cell, .mat-cell {
   padding: 10px;
@@ -405,6 +429,11 @@ body {
 
   .view-button {
     padding: 4px 8px; /* Reduce padding for smaller screens */
+    font-size: 12px; /* Reduce font size for smaller screens */
+  }
+  .search-container input {
+    width: 150px; /* Reduce width for smaller screens */
+    height: 32px; /* Reduce height for smaller screens */
     font-size: 12px; /* Reduce font size for smaller screens */
   }
 }

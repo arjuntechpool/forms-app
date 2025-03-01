@@ -40,6 +40,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
     district: '',
   };
 
+  constructor(private dialog: MatDialog) {}
 
   states: string[] = ['Kerala', 'Tamil Nadu'];
   districts: Record<string, string[]> = {
@@ -63,12 +64,12 @@ export class SignupComponent implements OnInit, AfterViewInit {
     'date',
     'gender',
     'preference',
-    'houseName',
-    'mainPlace',
-    'post',
-    'pin',
-    'state',
-    'district',
+    // 'houseName',
+    // 'mainPlace',
+    // 'post',
+    // 'pin',
+    // 'state',
+    // 'district',
     'actions',
   ];
 
@@ -137,6 +138,8 @@ export class SignupComponent implements OnInit, AfterViewInit {
         // Add new entry
         updatedData.push(formData);
       }
+
+      console.log('Saved/Updated Row Data:', formData);
 
       // Use the updateDataSource method to ensure paginator is connected
       this.updateDataSource(updatedData);

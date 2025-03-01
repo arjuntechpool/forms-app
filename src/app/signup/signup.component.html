@@ -173,6 +173,7 @@
                 [(ngModel)]="model.pin"
                 maxlength="6"
                 aria-required="true"
+                required="required"
               />
               <span
                 *ngIf="submitted && !isPinValid()"
@@ -194,6 +195,7 @@
               [(ngModel)]="model.state"
               (change)="onStateChange($event)"
               aria-required="true"
+              required="required"
             >
               <option value="" disabled>Select your state</option>
               <option *ngFor="let state of states" [value]="state">

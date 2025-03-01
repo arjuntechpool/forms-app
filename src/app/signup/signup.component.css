@@ -343,6 +343,11 @@ body {
   min-width: 100px;
 }
 
+.mat-column-status {
+  min-width: 150px; /* Adjust width as needed */
+  text-align: center;
+}
+
 /* Improve the actions column */
 .mat-column-actions {
   min-width: 180px; /* Increase the width to fit all buttons */

@@ -67,15 +67,9 @@ export class SignupComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'name',
     'email',
-    'date',
-    // 'gender',
-    'preference',
-    // 'houseName',
-    // 'mainPlace',
-    // 'post',
-    // 'pin',
-    // 'state',
-    // 'district',
+    // 'date',
+    // 'preference',
+    'status', // New column
     'actions',
   ];
 
@@ -111,17 +105,15 @@ export class SignupComponent implements OnInit, AfterViewInit {
     // Handle the result returned by the modal
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.lastAction = result.action; // Store the action (1 for Approve, 2 for Reject)
-        this.lastRemarks = result.remarks; // Store the remarks
+        // Update the row with the action and remarks
+        row.status = result.action; // 1 for Approve, 2 for Reject
+        row.remarks = result.remarks;
 
-        console.log('Action:', this.lastAction); // Log the action
-        console.log('Remarks:', this.lastRemarks); // Log the remarks
+        console.log('Action:', row.status); // Log the action
+        console.log('Remarks:', row.remarks); // Log the remarks
 
-        if (this.lastAction === 1) {
-          alert('Approved with remarks: ' + this.lastRemarks);
-        } else if (this.lastAction === 2) {
-          alert('Rejected with remarks: ' + this.lastRemarks);
-        }
+        // Update the data source to reflect changes
+        this.updateDataSource([...this.dataSource.data]);
       } else {
         console.log('Modal closed without any action'); // Log if the modal was closed without any action
       }

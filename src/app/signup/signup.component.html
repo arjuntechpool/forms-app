@@ -171,6 +171,8 @@
                 name="pin"
                 placeholder="Ex. 695581"
                 [(ngModel)]="model.pin"
+                maxlength="6"
+                aria-required="true"
               />
               <span
                 *ngIf="submitted && !isPinValid()"

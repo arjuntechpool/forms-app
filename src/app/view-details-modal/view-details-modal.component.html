@@ -3,7 +3,7 @@
   <div>
     <p><strong>Name:</strong> {{ data.name }}</p>
     <p><strong>Email:</strong> {{ data.email }}</p>
-    <p><strong>Date:</strong> {{ data.date }}</p>
+    <p><strong>Date:</strong> {{ data.date | date:'dd/MM/yyyy' }}</p>
     <p><strong>Gender:</strong> {{ data.gender }}</p>
     <p><strong>Preferences:</strong> {{ data.buy ? 'Buy' : '' }} {{ data.rent ? 'Rent' : '' }}</p>
     <p><strong>House Name:</strong> {{ data.houseName }}</p>

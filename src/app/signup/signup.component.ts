@@ -167,7 +167,9 @@ export class SignupComponent implements OnInit, AfterViewInit {
       this.isEmailValid() &&
       this.isDateValid() &&
       this.isGenderValid() &&
-      this.isPinValid()
+      this.isPinValid() &&
+      this.isStateValid() &&
+      this.isDistrictValid()
     );
   }
 
@@ -189,9 +191,15 @@ export class SignupComponent implements OnInit, AfterViewInit {
   }
 
   isPinValid(): boolean {
-    if (!this.model.pin) return true; // Make PIN optional
+    // if (!this.model.pin) return true; // Make PIN optional
     const pinMatch = this.model.pin.match(/^\d{6}$/);
     return pinMatch !== null;
+  }
+  isStateValid(): boolean {
+    return this.model.state.trim() !== '';
+  }
+  isDistrictValid(): boolean {
+    return this.model.district.trim() !== '';
   }
 
   resetForm() {

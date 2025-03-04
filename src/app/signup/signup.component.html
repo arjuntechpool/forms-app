@@ -12,12 +12,12 @@
 
       <div class="form-grid">
         <!-- Name Field -->
-             <!-- Remarks Section (Visible only if status is 'Approved' or 'Rejected') -->
-      <div class="status-section">
-        <span *ngIf="model.remarks" >
-          Remarks: {{ model.remarks || 'No remarks provided' }}
-        </span>
-      </div>
+        <!-- Remarks Section (Visible only if status is 'Approved' or 'Rejected') -->
+        <div class="status-section">
+          <span *ngIf="model.remarks">
+            Remarks: {{ model.remarks || "No remarks provided" }}
+          </span>
+        </div>
 
         <!-- Name Field -->
         <div class="form-group">
@@ -125,10 +125,21 @@
             <label>Buy or rent</label>
             <div class="checkbox-group">
               <label>
-                <input type="checkbox" name="buy" [(ngModel)]="model.buy" [disabled]="shouldDisableFields"/> Buy
+                <input
+                  type="checkbox"
+                  name="buy"
+                  [(ngModel)]="model.buy"
+                  [disabled]="shouldDisableFields"
+                />
+                Buy
               </label>
               <label>
-                <input type="checkbox" name="rent" [(ngModel)]="model.rent"[disabled]="shouldDisableFields" />
+                <input
+                  type="checkbox"
+                  name="rent"
+                  [(ngModel)]="model.rent"
+                  [disabled]="shouldDisableFields"
+                />
                 Rent
               </label>
             </div>
@@ -466,7 +477,7 @@
 <!-- Form Buttons -->
 <footer class="app-footer">
   <div class="button-group">
-    <button type="button" (click)="onSubmit()" [disabled]="shouldDisableFields">
+    <button type="button" (click)="onSubmit()" *ngIf="!shouldDisableFields">
       {{ isEditing ? "Update" : "Register" }}
     </button>
     <button type="button" (click)="clearForm()">Clear</button>

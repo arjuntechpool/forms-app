@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -46,7 +46,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
     status: null as number | null,
   };
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private cdr: ChangeDetectorRef) {}
 
   states: string[] = ['Kerala', 'Tamil Nadu'];
   districts: Record<string, string[]> = {
@@ -117,6 +117,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
         row.remarks = result.remarks;
         this.model.remarks = result.remarks || 'No remarks provided';
         this.model.status = result.action || 0;
+        this.cdr.detectChanges(); // Force Angular to detect changes
 
         console.log('Action:', row.status); // Log the action
         console.log('Remarks:', row.remarks); // Log the remarks

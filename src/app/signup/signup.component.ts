@@ -9,6 +9,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { ViewDetailsModalComponent } from '../view-details-modal/view-details-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-signup',
@@ -24,6 +25,7 @@ import { MatDialog } from '@angular/material/dialog';
     MatInputModule,
     MatSortModule,
     MatIconModule,
+    MatTooltipModule,
   ],
 })
 export class SignupComponent implements OnInit, AfterViewInit {
@@ -40,6 +42,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
     pin: '',
     state: '',
     district: '',
+    status: '' as string | null,
   };
 
   constructor(private dialog: MatDialog) {}
@@ -108,9 +111,12 @@ export class SignupComponent implements OnInit, AfterViewInit {
         // Update the row with the action and remarks
         row.status = result.action; // 1 for Approve, 2 for Reject
         row.remarks = result.remarks;
+        this.model.status = result.remarks || 'No remarks provided';
 
         console.log('Action:', row.status); // Log the action
         console.log('Remarks:', row.remarks); // Log the remarks
+        console.log('Row Data:', row); // Log the updated row data
+        console.log('Model Data:', this.model); // Log the updated row data
 
         // Update the data source to reflect changes
         this.updateDataSource([...this.dataSource.data]);
@@ -230,6 +236,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
       pin: '',
       state: '',
       district: '',
+      status: '' as string | null,
     };
     this.editingIndex = null;
     this.isEditing = false;

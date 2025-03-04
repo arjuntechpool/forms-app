@@ -21,6 +21,7 @@
   <mat-form-field appearance="outline" class="remarks-field">
     <mat-label>Remarks</mat-label>
     <textarea
+      *ngIf="data.status !== 1 && data.status !== 2"
       matInput
       [(ngModel)]="remarks"
       placeholder="Enter remarks"
@@ -34,8 +35,20 @@
   <button mat-button (click)="onClose()">Close</button>
 
   <!-- Reject Button -->
-  <button  class="reject" (click)="onReject()">Reject</button>
-
-  <!-- Approve Button -->
-  <button  class="approve" (click)="onApprove()">Approve</button>
+  <button
+    *ngIf="data.status !== 1 && data.status !== 2"
+    mat-button
+    color="warn"
+    (click)="onReject()"
+  >
+    Reject
+  </button>
+  <button
+    *ngIf="data.status !== 1 && data.status !== 2"
+    mat-button
+    color="primary"
+    (click)="onApprove()"
+  >
+    Approve
+  </button>
 </mat-dialog-actions>

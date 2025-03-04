@@ -12,6 +12,14 @@
 
       <div class="form-grid">
         <!-- Name Field -->
+             <!-- Remarks Section (Visible only if status is 'Approved' or 'Rejected') -->
+      <div class="status-section">
+        <span *ngIf="model.status" >
+          Remarks: {{ model.status || 'No remarks provided' }}
+        </span>
+      </div>
+
+        <!-- Name Field -->
         <div class="form-group">
           <label for="name">Full Name</label>
           <input
@@ -382,10 +390,18 @@
           </ng-container>
 
           <ng-container matColumnDef="status">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Status
+            </mat-header-cell>
             <mat-cell *matCellDef="let result">
-              {{ result.status === 1 ? 'Approved' : result.status === 2 ? 'Rejected' : 'Pending' }}
-              <span *ngIf="result.remarks"> ({{ result.remarks }}) </span>
+              {{
+                result.status === 1
+                  ? "Approved"
+                  : result.status === 2
+                  ? "Rejected"
+                  : "Pending"
+              }}
+              <!-- <span *ngIf="result.remarks"> ({{ result.remarks }}) </span> -->
             </mat-cell>
           </ng-container>
 
@@ -394,20 +410,24 @@
             <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
             <mat-cell *matCellDef="let result; let i = index">
               <button
+                *ngIf="result.status !== 1 && result.status !== 2"
                 mat-icon-button
                 color="primary"
                 class="action-button"
                 (click)="editEntry(i)"
                 aria-label="Edit"
+                matTooltip="Edit"
               >
                 <mat-icon>edit</mat-icon>
               </button>
               <button
+                *ngIf="result.status !== 1 && result.status !== 2"
                 mat-icon-button
                 color="warn"
                 class="action-button"
                 (click)="deleteEntry(i)"
                 aria-label="Delete"
+                matTooltip="Delete"
               >
                 <mat-icon>delete</mat-icon>
               </button>

@@ -42,7 +42,8 @@ export class SignupComponent implements OnInit, AfterViewInit {
     pin: '',
     state: '',
     district: '',
-    status: '' as string | null,
+    remarks: '' as string | null,
+    status: null as number | null,
   };
 
   constructor(private dialog: MatDialog) {}
@@ -57,8 +58,6 @@ export class SignupComponent implements OnInit, AfterViewInit {
     this.model.state = selectedState;
     this.model.district = ''; // Reset district when state changes
   }
-
-
 
   submitted = false;
   showTable = false;
@@ -99,6 +98,11 @@ export class SignupComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // Getter to determine if fields should be disabled
+  get shouldDisableFields(): boolean {
+    return this.model.status === 1 || this.model.status === 2;
+  }
+
   openViewModal(row: any) {
     const dialogRef = this.dialog.open(ViewDetailsModalComponent, {
       width: '10000px', // Set the width of the modal
@@ -111,7 +115,8 @@ export class SignupComponent implements OnInit, AfterViewInit {
         // Update the row with the action and remarks
         row.status = result.action; // 1 for Approve, 2 for Reject
         row.remarks = result.remarks;
-        this.model.status = result.remarks || 'No remarks provided';
+        this.model.remarks = result.remarks || 'No remarks provided';
+        this.model.status = result.action || 0;
 
         console.log('Action:', row.status); // Log the action
         console.log('Remarks:', row.remarks); // Log the remarks
@@ -125,7 +130,6 @@ export class SignupComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
 
   // This method will be called whenever we need to update the dataSource
   private updateDataSource(data: any[]) {
@@ -183,8 +187,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
 
   isFormValid(): boolean {
     return (
-      this.isNameValid() &&
-      this.isEmailValid()
+      this.isNameValid() && this.isEmailValid()
       // this.isDateValid() &&
       // this.isGenderValid() &&
       // this.isPinValid() &&
@@ -236,7 +239,8 @@ export class SignupComponent implements OnInit, AfterViewInit {
       pin: '',
       state: '',
       district: '',
-      status: '' as string | null,
+      remarks: '' as string | null,
+      status: null as number | null,
     };
     this.editingIndex = null;
     this.isEditing = false;

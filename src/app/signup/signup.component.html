@@ -14,8 +14,8 @@
         <!-- Name Field -->
              <!-- Remarks Section (Visible only if status is 'Approved' or 'Rejected') -->
       <div class="status-section">
-        <span *ngIf="model.status" >
-          Remarks: {{ model.status || 'No remarks provided' }}
+        <span *ngIf="model.remarks" >
+          Remarks: {{ model.remarks || 'No remarks provided' }}
         </span>
       </div>
 
@@ -29,6 +29,7 @@
             placeholder="Ex. John Smith"
             [(ngModel)]="model.name"
             aria-required="true"
+            [disabled]="shouldDisableFields"
           />
           <span
             *ngIf="submitted && !isNameValid()"
@@ -49,6 +50,7 @@
             placeholder="Ex. pat@example.com"
             [(ngModel)]="model.email"
             aria-required="true"
+            [disabled]="shouldDisableFields"
           />
           <span
             *ngIf="submitted && !isEmailValid()"
@@ -69,6 +71,7 @@
               name="date"
               [(ngModel)]="model.date"
               aria-required="true"
+              [disabled]="shouldDisableFields"
             />
             <span
               *ngIf="submitted && !isDateValid()"
@@ -89,6 +92,7 @@
                   name="gender"
                   value="1"
                   [(ngModel)]="model.gender"
+                  [disabled]="shouldDisableFields"
                 />
                 Male
               </label>
@@ -98,6 +102,7 @@
                   name="gender"
                   value="2"
                   [(ngModel)]="model.gender"
+                  [disabled]="shouldDisableFields"
                 />
                 Female
               </label>
@@ -120,10 +125,10 @@
             <label>Buy or rent</label>
             <div class="checkbox-group">
               <label>
-                <input type="checkbox" name="buy" [(ngModel)]="model.buy" /> Buy
+                <input type="checkbox" name="buy" [(ngModel)]="model.buy" [disabled]="shouldDisableFields"/> Buy
               </label>
               <label>
-                <input type="checkbox" name="rent" [(ngModel)]="model.rent" />
+                <input type="checkbox" name="rent" [(ngModel)]="model.rent"[disabled]="shouldDisableFields" />
                 Rent
               </label>
             </div>
@@ -143,6 +148,7 @@
                 name="houseName"
                 placeholder="Ex. Bethel"
                 [(ngModel)]="model.houseName"
+                [disabled]="shouldDisableFields"
               />
             </div>
 
@@ -155,6 +161,7 @@
                 name="mainPlace"
                 placeholder="Ex. Ulloor"
                 [(ngModel)]="model.mainPlace"
+                [disabled]="shouldDisableFields"
               />
             </div>
 
@@ -167,6 +174,7 @@
                 name="post"
                 placeholder="Ex. Post Office"
                 [(ngModel)]="model.post"
+                [disabled]="shouldDisableFields"
               />
             </div>
 
@@ -182,6 +190,7 @@
                 maxlength="6"
                 aria-required="true"
                 required="required"
+                [disabled]="shouldDisableFields"
               />
               <span
                 *ngIf="submitted && !isPinValid()"
@@ -204,6 +213,7 @@
                 (change)="onStateChange($event)"
                 aria-required="true"
                 required="required"
+                [attr.disabled]="shouldDisableFields ? true : null"
               >
                 <option value="" disabled>Select your state</option>
                 <option *ngFor="let state of states" [value]="state">
@@ -231,6 +241,7 @@
                 name="district"
                 [(ngModel)]="model.district"
                 aria-required="true"
+                [attr.disabled]="shouldDisableFields ? true : null"
               >
                 <option value="" disabled>Select your district</option>
                 <option
@@ -409,8 +420,8 @@
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
             <mat-cell *matCellDef="let result; let i = index">
+              <!-- *ngIf="result.status !== 1 && result.status !== 2" -->
               <button
-                *ngIf="result.status !== 1 && result.status !== 2"
                 mat-icon-button
                 color="primary"
                 class="action-button"
@@ -455,7 +466,7 @@
 <!-- Form Buttons -->
 <footer class="app-footer">
   <div class="button-group">
-    <button type="button" (click)="onSubmit()">
+    <button type="button" (click)="onSubmit()" [disabled]="shouldDisableFields">
       {{ isEditing ? "Update" : "Register" }}
     </button>
     <button type="button" (click)="clearForm()">Clear</button>
